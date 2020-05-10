@@ -1,8 +1,5 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val kindProjectorV = "0.11.0"
-val betterMonadicForV = "0.3.1"
-
 // Projects
 lazy val `sbt-http4s-org` = project.in(file("."))
   .disablePlugins(MimaPlugin)
@@ -19,9 +16,6 @@ lazy val core = project.in(file("core"))
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.11",
   crossScalaVersions := Seq(scalaVersion.value),
-
-  addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorV cross CrossVersion.full),
-  addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % betterMonadicForV),
 
   libraryDependencies ++= Seq(
   )
