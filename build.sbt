@@ -26,7 +26,7 @@ inThisBuild(List(
     Developer("rossabaker", "Ross A. Baker", "ross@rossabaker.com", url("https://github.com/rossabaker"))
   ),
 
-  homepage := Some(url("https://github.com/rossabaker/sbt-http4s-org")),
+  homepage := Some(url("https://github.com/http4s/sbt-http4s-org")),
 
   licenses := Seq("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.html")),
 
@@ -34,6 +34,6 @@ inThisBuild(List(
   scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
       "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
-      "-doc-source-url", "https://github.com/rossabaker/sbt-http4s-org/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "-doc-source-url", "https://github.com/http4s/sbt-http4s-org/blob/v" + version.value + "€{FILE_PATH}.scala"
   )
 ))
