@@ -20,8 +20,8 @@ object AlpnBootPlugin extends AutoPlugin {
   def addAlpnPath(classpath: Classpath, alpnBoot: ModuleID): Seq[String] = {
     def isAlpnBoot(m: ModuleID) =
       (m.organization == alpnBoot.organization) &&
-      (m.name == alpnBoot.name) &&
-      (m.revision == alpnBoot.revision)
+        (m.name == alpnBoot.name) &&
+        (m.revision == alpnBoot.revision)
     val args = classpath.collect {
       case entry if entry.get(moduleID.key).fold(false)(isAlpnBoot) =>
         s"-Xbootclasspath/p:${entry}"

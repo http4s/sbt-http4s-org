@@ -21,9 +21,12 @@ object SilencerPlugin extends AutoPlugin {
     Seq(
       silencerVersion := "1.6.0",
       libraryDependencies ++= Seq(
-        compilerPlugin(("com.github.ghik" % "silencer-plugin" % silencerVersion.value).cross(CrossVersion.full)),
-        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % CompileTime).cross(CrossVersion.full),
-        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % Test).cross(CrossVersion.full),
+        compilerPlugin(
+          ("com.github.ghik" % "silencer-plugin" % silencerVersion.value).cross(CrossVersion.full)),
+        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % CompileTime)
+          .cross(CrossVersion.full),
+        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % Test)
+          .cross(CrossVersion.full)
       ),
       unusedCompileDependenciesFilter -= moduleFilter("com.github.ghik", name = "silencer-lib")
     )

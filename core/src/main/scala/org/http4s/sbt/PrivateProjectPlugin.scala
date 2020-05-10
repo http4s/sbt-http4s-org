@@ -13,6 +13,6 @@ object PrivateProjectPlugin extends AutoPlugin {
   override lazy val projectSettings: Seq[Setting[_]] =
     Seq(
       publish / skip := true,
-      mimaPreviousArtifacts := Set.empty,
+      mimaPreviousArtifacts := Set.empty
     )
 }

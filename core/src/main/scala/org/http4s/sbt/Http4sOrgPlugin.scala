@@ -17,15 +17,15 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires =
     AutomateHeaderPlugin &&
-    MimaVersionCheck &&
-    ScalafmtPlugin
+      MimaVersionCheck &&
+      ScalafmtPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
-    scalaSettings ++
-    javaSettings ++
-    docSettings ++
-    headerSettings
+      scalaSettings ++
+      javaSettings ++
+      docSettings ++
+      headerSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -46,7 +46,7 @@ object Http4sOrgPlugin extends AutoPlugin {
     Seq(
       javacOptions ++=
         Seq(
-          "-Xlint:all",
+          "-Xlint:all"
         )
     )
 
@@ -61,8 +61,10 @@ object Http4sOrgPlugin extends AutoPlugin {
           browseUrl = scm.browseUrl
           path = s"${browseUrl}/blob/${ref}€{FILE_PATH}.scala"
         } yield Seq(
-          "-doc-source-url", path,
-          "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath
+          "-doc-source-url",
+          path,
+          "-sourcepath",
+          baseDirectory.in(LocalRootProject).value.getAbsolutePath
         )).getOrElse(Seq.empty[String])
       }
     )
