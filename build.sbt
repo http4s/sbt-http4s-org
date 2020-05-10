@@ -24,7 +24,7 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.11",
   crossScalaVersions := Seq(scalaVersion.value),
   libraryDependencies ++= Seq(
-    )
+  )
 )
 
 // General Settings
