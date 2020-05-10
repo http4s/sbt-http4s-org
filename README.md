@@ -1,14 +1,56 @@
-# sbt-http4s-org - SBT plugin for http4s projects [![Build Status](https://travis-ci.com/rossabaker/sbt-http4s-org.svg?branch=master)](https://travis-ci.com/rossabaker/sbt-http4s-org) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.http4s/sbt-http4s-org_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.http4s/sbt-http4s-org_2.12) ![Code of Consuct](https://img.shields.io/badge/Code%20of%20Conduct-Scala-blue.svg)
+# sbt-http4s-org
 
-## [Head on over to the microsite](https://rossabaker.github.io/sbt-http4s-org)
+This project is intended to set up sensible defaults and standards for projects in the http4s organization.
+It is not designed for outside use, but we offer it as an inspiration or warning to others.
 
-## Quick Start
+## Installing it
 
-To use sbt-http4s-org in an existing SBT project with Scala 2.11 or a later version, add the following dependencies to your
-`build.sbt` depending on your needs:
+The plugin is deployed to Sonatype.
 
 ```scala
-libraryDependencies ++= Seq(
-  "org.http4s" %% "sbt-http4s-org" % "<version>"
-)
+addSbtPlugin("org.http4s" % "sbt-http4s-org" % http4sOrgV)
 ```
+
+## What does it do?
+
+### `Http4sOrgPlugin`
+
+Triggers automatically.  Use on all http4s modules.
+
+* Sets the organization to `org.http4s`
+* Sets `-Ybackend-parallelism` compiler option
+* Turns on Java warnings, if you have them
+* Sets an appropriate `-doc-source-url` for your Scaladoc
+* Enables automated SPDX license headers with appropriate years
+* Enables [scalafmt](https://scalameta.org/scalafmt/)
+* Enables [MiMa](https://github.com/lightbend/mima) checks for binary compatibility via [sbt-mima-version-check](https://christopherdavenport.github.io/sbt-mima-version-check/)
+
+### `AlpnBootPlugin`
+
+Enable with `enablePlugins(AlpnBootPlugin)`.
+Use on example projects that require ALPN support.
+
+* Sets up `-Xbootclasspath` for [ALPN](https://www.eclipse.org/jetty/documentation/current/alpn-chapter.html). Useful primarily for example projects.
+
+### `CompileTimePlugin`
+
+Enable with `enablePlugins(CompileTimePlugin)`.
+Mostly useful to support other plugins.
+
+* Sets up a `CompileTime` SBT configuration for libraries that exist at compile time, but not runtime.
+
+### `PrivateProjectPlugin`
+
+Enable with `enablePlugins(PrivateProjectPlugin)`.
+Use on examples, benchmarks, docs, and other projects that should not be published.
+
+* Skips publishing
+* Disables MiMa checks.
+
+### `SilencerPlugin`
+
+Enable with `enablePlugins(SilencerPlugin)`
+
+* Adds the [silencer](https://github.com/ghik/silencer) compiler plugin to suppress warnings.
+* Adds the supporting library to `CompileTime` and `Test` scopes, so it doesn't leave a trace in production.
+
