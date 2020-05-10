@@ -18,7 +18,7 @@ lazy val core = project.in(file("core"))
 // General Settings
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.11",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.10"),
+  crossScalaVersions := Seq(scalaVersion.value),
 
   addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorV cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % betterMonadicForV),
