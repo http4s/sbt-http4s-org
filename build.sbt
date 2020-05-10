@@ -25,54 +25,6 @@ lazy val core = project.in(file("core"))
     name := "sbt-http4s-org"
   )
 
-lazy val site = project.in(file("site"))
-  .disablePlugins(MimaPlugin)
-  .enablePlugins(MicrositesPlugin)
-  .enablePlugins(MdocPlugin)
-  .enablePlugins(NoPublishPlugin)
-  .settings(commonSettings)
-  .dependsOn(core)
-  .settings{
-    import microsites._
-    Seq(
-      micrositeName := "sbt-http4s-org",
-      micrositeDescription := "SBT plugin for http4s projects",
-      micrositeAuthor := "Ross A. Baker",
-      micrositeGithubOwner := "rossabaker",
-      micrositeGithubRepo := "sbt-http4s-org",
-      micrositeBaseUrl := "/sbt-http4s-org",
-      micrositeDocumentationUrl := "https://www.javadoc.io/doc/org.http4s/sbt-http4s-org_2.12",
-      micrositeGitterChannelUrl := "rossabaker/libraries", // Feel Free to Set To Something Else
-      micrositeFooterText := None,
-      micrositeHighlightTheme := "atom-one-light",
-      micrositePalette := Map(
-        "brand-primary" -> "#3e5b95",
-        "brand-secondary" -> "#294066",
-        "brand-tertiary" -> "#2d5799",
-        "gray-dark" -> "#49494B",
-        "gray" -> "#7B7B7E",
-        "gray-light" -> "#E5E5E6",
-        "gray-lighter" -> "#F4F3F4",
-        "white-color" -> "#FFFFFF"
-      ),
-      micrositeCompilingDocsTool := WithMdoc,
-      scalacOptions in Tut --= Seq(
-        "-Xfatal-warnings",
-        "-Ywarn-unused-import",
-        "-Ywarn-numeric-widen",
-        "-Ywarn-dead-code",
-        "-Ywarn-unused:imports",
-        "-Xlint:-missing-interpolator,_"
-      ),
-      micrositePushSiteWith := GitHub4s,
-      micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
-      micrositeExtraMdFiles := Map(
-          file("CODE_OF_CONDUCT.md")  -> ExtraMdFileConfig("code-of-conduct.md",   "page", Map("title" -> "code of conduct",   "section" -> "code of conduct",   "position" -> "100")),
-          file("LICENSE")             -> ExtraMdFileConfig("license.md",   "page", Map("title" -> "license",   "section" -> "license",   "position" -> "101"))
-      )
-    )
-  }
-
 // General Settings
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.11",
