@@ -5,6 +5,7 @@ lazy val `sbt-http4s-org` = project.in(file("."))
   .aggregate(core)
 
 lazy val core = project.in(file("core"))
+  .enablePlugins(SbtPlugin)
   .settings(commonSettings)
   .settings(
     name := "sbt-http4s-org"
