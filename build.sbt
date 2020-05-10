@@ -8,7 +8,13 @@ lazy val core = project.in(file("core"))
   .enablePlugins(SbtPlugin)
   .settings(commonSettings)
   .settings(
-    name := "sbt-http4s-org"
+    name := "sbt-http4s-org",
+    addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.12"),
+    addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.7.0"),
+    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0"),
+    addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.6.0"),
+    addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2"),
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.3.1")
   )
 
 // General Settings
