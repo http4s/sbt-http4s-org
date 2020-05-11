@@ -23,7 +23,6 @@ object Http4sOrgPlugin extends AutoPlugin {
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
       scalaSettings ++
-      javaSettings ++
       docSettings ++
       headerSettings
 
@@ -39,14 +38,6 @@ object Http4sOrgPlugin extends AutoPlugin {
         Seq(
           "-Ybackend-parallelism",
           math.min(JRuntime.getRuntime.availableProcessors, 16).toString
-        )
-    )
-
-  val javaSettings: Seq[Setting[_]] =
-    Seq(
-      javacOptions ++=
-        Seq(
-          "-Xlint:all"
         )
     )
 
