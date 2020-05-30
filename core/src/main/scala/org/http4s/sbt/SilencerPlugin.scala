@@ -19,7 +19,7 @@ object SilencerPlugin extends AutoPlugin {
 
   override lazy val projectSettings: Seq[Setting[_]] =
     Seq(
-      silencerVersion := "1.6.0",
+      silencerVersion := "1.7.0",
       libraryDependencies ++= Seq(
         compilerPlugin(
           ("com.github.ghik" % "silencer-plugin" % silencerVersion.value).cross(CrossVersion.full)),
