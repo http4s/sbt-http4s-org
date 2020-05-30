@@ -19,7 +19,6 @@ Triggers automatically.  Use on all http4s modules.
 
 * Sets the organization to `org.http4s`
 * Sets `-Ybackend-parallelism` compiler option
-* Turns on Java warnings, if you have them
 * Sets an appropriate `-doc-source-url` for your Scaladoc
 * Enables automated SPDX license headers with appropriate years
 * Enables [scalafmt](https://scalameta.org/scalafmt/)
@@ -38,6 +37,13 @@ Enable with `enablePlugins(CompileTimePlugin)`.
 Mostly useful to support other plugins.
 
 * Sets up a `CompileTime` SBT configuration for libraries that exist at compile time, but not runtime.
+
+### `JavaPlugin`
+
+Enable with `enablePlugins(JavaPlugin)`.
+
+* Turns on `-Xlint:all` warnings
+* Enables [sbt-java-formatter](https://github.com/sbt/sbt-java-formatter)
 
 ### `PrivateProjectPlugin`
 
