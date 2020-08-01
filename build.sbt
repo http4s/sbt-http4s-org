@@ -17,7 +17,7 @@ lazy val core = project
     addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0"),
     addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.6.0"),
     addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
   )
 
 // General Settings
