@@ -11,18 +11,18 @@ lazy val core = project
   .settings(commonSettings)
   .settings(
     name := "sbt-http4s-org",
-    addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.12"),
-    addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.5.1"),
-    addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.7.0"),
+    addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.14"),
+    addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.6.0"),
+    addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.8.0"),
     addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0"),
     addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.6.0"),
     addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
   )
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.11",
+  scalaVersion := "2.12.12",
   crossScalaVersions := Seq(scalaVersion.value),
   libraryDependencies ++= Seq(
   )
