@@ -22,7 +22,7 @@ lazy val core = project
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.11",
+  scalaVersion := "2.12.12",
   crossScalaVersions := Seq(scalaVersion.value),
   libraryDependencies ++= Seq(
   )
