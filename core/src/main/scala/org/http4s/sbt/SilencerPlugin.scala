@@ -18,16 +18,22 @@ object SilencerPlugin extends AutoPlugin {
   override def requires = CompileTimePlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
-    Seq(
-      silencerVersion := "1.7.0",
-      libraryDependencies ++= Seq(
-        compilerPlugin(
-          ("com.github.ghik" % "silencer-plugin" % silencerVersion.value).cross(CrossVersion.full)),
-        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % CompileTime)
-          .cross(CrossVersion.full),
-        ("com.github.ghik" % "silencer-lib" % silencerVersion.value % Test)
-          .cross(CrossVersion.full)
-      ),
-      unusedCompileDependenciesFilter -= moduleFilter("com.github.ghik", name = "silencer-lib")
-    )
+    if (isDotty) {
+      Seq(
+        silencerVersion := "1.7.0",
+        libraryDependencies ++=
+          Seq(
+            compilerPlugin(
+              ("com.github.ghik" % "silencer-plugin" % silencerVersion.value).cross(
+                CrossVersion.full)),
+            ("com.github.ghik" % "silencer-lib" % silencerVersion.value % CompileTime)
+              .cross(CrossVersion.full),
+            ("com.github.ghik" % "silencer-lib" % silencerVersion.value % Test)
+              .cross(CrossVersion.full)
+          ),
+        unusedCompileDependenciesFilter -= moduleFilter("com.github.ghik", name = "silencer-lib")
+      )
+    } else {
+      Seq.empty
+    }
 }
