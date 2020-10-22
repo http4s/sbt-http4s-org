@@ -59,4 +59,4 @@ Enable with `enablePlugins(SilencerPlugin)`
 
 * Adds the [silencer](https://github.com/ghik/silencer) compiler plugin to suppress warnings.
 * Adds the supporting library to `CompileTime` and `Test` scopes, so it doesn't leave a trace in production.
-
+* Disabled automatically in Dotty
