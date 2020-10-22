@@ -4,6 +4,7 @@ import sbt._
 import sbt.Keys._
 
 import com.typesafe.sbt.SbtGit.git
+import dotty.tools.sbtplugin.DottyPlugin.autoImport._
 import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import java.lang.{Runtime => JRuntime}
@@ -34,11 +35,14 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   val scalaSettings: Seq[Setting[_]] =
     Seq(
-      scalacOptions ++=
-        Seq(
-          "-Ybackend-parallelism",
-          math.min(JRuntime.getRuntime.availableProcessors, 16).toString
-        )
+      scalacOptions ++= {
+        if (isDotty.value) Seq.empty
+        else
+          Seq(
+            "-Ybackend-parallelism",
+            math.min(JRuntime.getRuntime.availableProcessors, 16).toString
+          )
+      }
     )
 
   val docSettings: Seq[Setting[_]] =
