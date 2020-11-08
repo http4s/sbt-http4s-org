@@ -51,5 +51,16 @@ inThisBuild(
       (baseDirectory in LocalRootProject).value.getAbsolutePath,
       "-doc-source-url",
       "https://github.com/http4s/sbt-http4s-org/blob/v" + version.value + "€{FILE_PATH}.scala"
-    )
+    ),
+    githubWorkflowTargetTags ++= Seq("v*"),
+    githubWorkflowBuild := Seq(
+      WorkflowStep
+        .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
+      WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
+      WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
+      WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
+    ),
+    githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"), name = Some("Release"))),
+    githubWorkflowPublishTargetBranches :=
+      Seq(RefPredicate.StartsWith(Ref.Tag("v")))
   ))
