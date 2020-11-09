@@ -23,6 +23,7 @@ Triggers automatically.  Use on all http4s modules.
 * Enables automated SPDX license headers with appropriate years
 * Enables [scalafmt](https://scalameta.org/scalafmt/)
 * Enables [MiMa](https://github.com/lightbend/mima) checks for binary compatibility via [sbt-mima-version-check](https://christopherdavenport.github.io/sbt-mima-version-check/)
+* Enables [sbt-github-actions](https://github.com/djspiewak/sbt-github-actions) with settings appropriate to our workflow
 
 ### `AlpnBootPlugin`
 

@@ -10,6 +10,8 @@ import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import java.lang.{Runtime => JRuntime}
 import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
 import org.scalafmt.sbt.ScalafmtPlugin
+import sbtghactions._
+import sbtghactions.GenerativeKeys._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
@@ -77,5 +79,26 @@ object Http4sOrgPlugin extends AutoPlugin {
           headerLicenseStyle.value
         )
       }
+    )
+
+  val githubActionsSettings: Seq[Setting[_]] =
+    Seq(
+      githubWorkflowJavaVersions := List("adopt@1.8", "adopt@1.11", "adopt@1.15"),
+      githubWorkflowTargetTags ++= Seq("v*"),
+      githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"), name = Some("Release"))),
+      githubWorkflowPublishTargetBranches :=
+        Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
+      githubWorkflowBuild := Seq(
+        WorkflowStep
+          .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
+        WorkflowStep.Sbt(List("headerCheck", "test:headerCheck"), name = Some("Check headers")),
+        WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
+        WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
+        WorkflowStep.Sbt(
+          List("unusedCompileDependenciesTest"),
+          name = Some("Check unused dependencies")),
+        WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
+        WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
+      )
     )
 }
