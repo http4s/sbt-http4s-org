@@ -3,6 +3,7 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
+import dotty.tools.sbtplugin.DottyPlugin
 import dotty.tools.sbtplugin.DottyPlugin.autoImport._
 import explicitdeps.ExplicitDepsPlugin.autoImport._
 import CompileTimePlugin.CompileTime
@@ -15,7 +16,7 @@ object SilencerPlugin extends AutoPlugin {
   import autoImport._
 
   override def trigger = allRequirements
-  override def requires = CompileTimePlugin
+  override def requires = DottyPlugin && CompileTimePlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     Seq(

@@ -4,6 +4,7 @@ import sbt._
 import sbt.Keys._
 
 import com.typesafe.sbt.SbtGit.git
+import dotty.tools.sbtplugin.DottyPlugin
 import dotty.tools.sbtplugin.DottyPlugin.autoImport._
 import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
@@ -20,6 +21,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires =
     AutomateHeaderPlugin &&
+      DottyPlugin &&
       MimaVersionCheck &&
       ScalafmtPlugin
 
