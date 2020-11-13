@@ -11,7 +11,7 @@ lazy val core = project
   .settings(commonSettings)
   .settings(
     name := "sbt-http4s-org",
-    addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.4.5"),
+    addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.4.6"),
     addSbtPlugin("com.codecommit" % "sbt-github-actions" % "0.9.4"),
     addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.15"),
     addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.6.0"),
