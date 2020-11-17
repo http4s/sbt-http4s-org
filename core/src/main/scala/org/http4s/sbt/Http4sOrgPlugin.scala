@@ -1,18 +1,21 @@
+/*
+ * Copyright 2020-2020 http4s.org
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package org.http4s.sbt
 
 import sbt._
 import sbt.Keys._
 
-import com.typesafe.sbt.SbtGit.git
-import dotty.tools.sbtplugin.DottyPlugin
-import dotty.tools.sbtplugin.DottyPlugin.autoImport._
-import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
+import de.heikoseeberger.sbtheader.{LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
-import java.lang.{Runtime => JRuntime}
 import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
 import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
+import sbtspiewak.SpiewakPlugin
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
@@ -20,52 +23,33 @@ object Http4sOrgPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override def requires =
-    AutomateHeaderPlugin &&
-      DottyPlugin &&
-      MimaVersionCheck &&
-      ScalafmtPlugin
+    ScalafmtPlugin &&
+    SpiewakPlugin &&
+    MimaVersionCheck
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
-      scalaSettings ++
-      docSettings ++
       headerSettings
+
+  override val buildSettings: Seq[Setting[_]] =
+    addCommandAlias("ci", List(
+      "project /",
+      "headerCheck",
+      "test:headerCheck",
+      "scalafmtCheckAll",
+      "scalafmtSbtCheck",
+      "clean",
+      "mimaReportBinaryIssuesIfRelevant",
+      "undeclaredCompileDependencies",
+      "unusedCompileDependenices",
+      "testIfRelevant",
+      "doc",
+    ).mkString("; ", "; ", ""))
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
       organization := "org.http4s",
       organizationName := "http4s.org"
-    )
-
-  val scalaSettings: Seq[Setting[_]] =
-    Seq(
-      scalacOptions ++= {
-        if (isDotty.value) Seq.empty
-        else
-          Seq(
-            "-Ybackend-parallelism",
-            math.min(JRuntime.getRuntime.availableProcessors, 16).toString
-          )
-      }
-    )
-
-  val docSettings: Seq[Setting[_]] =
-    Seq(
-      Compile / doc / scalacOptions ++= {
-        (for {
-          headCommit <- git.gitHeadCommit.value
-          isSnapshot = git.gitCurrentTags.value.map(git.gitTagToVersionNumber.value).flatten.isEmpty
-          ref = if (isSnapshot) headCommit else s"v${version.value}"
-          scm <- scmInfo.value
-          browseUrl = scm.browseUrl
-          path = s"${browseUrl}/blob/${ref}€{FILE_PATH}.scala"
-        } yield Seq(
-          "-doc-source-url",
-          path,
-          "-sourcepath",
-          baseDirectory.in(LocalRootProject).value.getAbsolutePath
-        )).getOrElse(Seq.empty[String])
-      }
     )
 
   val headerSettings: Seq[Setting[_]] =
@@ -91,16 +75,6 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowPublishTargetBranches :=
         Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
       githubWorkflowBuild := Seq(
-        WorkflowStep
-          .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
-        WorkflowStep.Sbt(List("headerCheck", "test:headerCheck"), name = Some("Check headers")),
-        WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
-        WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
-        WorkflowStep.Sbt(
-          List("undeclaredCompileDependencies", "unusedCompileDependenciesTest"),
-          name = Some("Check explicit dependencies")),
-        WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
-        WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
-      )
+        WorkflowStep.Sbt(List("ci")))
     )
 }
