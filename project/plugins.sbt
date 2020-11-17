@@ -1,4 +1,4 @@
-addSbtPlugin("com.codecommit" % "sbt-github-actions" % "0.9.4")
+addSbtPlugin("com.codecommit" % "sbt-github-actions" % "0.9.5")
 addSbtPlugin("com.geirsson" % "sbt-ci-release" % "1.5.4")
 addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2")
 addSbtPlugin("io.chrisdavenport" % "sbt-no-publish" % "0.1.0")
