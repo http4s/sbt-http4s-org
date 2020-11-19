@@ -8,7 +8,6 @@ lazy val `sbt-http4s-org` = project
 lazy val core = project
   .in(file("core"))
   .enablePlugins(SbtPlugin)
-  .settings(commonSettings)
   .settings(
     name := "sbt-http4s-org",
     addSbtPlugin("com.codecommit" % "sbt-spiewak" % "0.17.0"),
@@ -18,17 +17,13 @@ lazy val core = project
   )
 
 // General Settings
-lazy val commonSettings = Seq(
-  crossScalaVersions := Seq("2.12.12"),
-  scalaVersion := crossScalaVersions.value.head
-)
-
-// General Settings
 inThisBuild(
   List(
     organization := "org.http4s",
     organizationName := "http4s.org",
     baseVersion := "0.5",
+    crossScalaVersions := Seq("2.12.12"),
+    scalaVersion := crossScalaVersions.value.head,
     publishGithubUser in ThisBuild := "rossabaker",
     publishFullName in ThisBuild := "Ross A. Baker",
     homepage := Some(url("https://github.com/http4s/sbt-http4s-org")),
