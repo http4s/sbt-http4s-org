@@ -19,7 +19,6 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
 import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
@@ -32,8 +31,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires =
     ScalafmtPlugin &&
-    SpiewakPlugin &&
-    MimaVersionCheck
+    SpiewakPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings

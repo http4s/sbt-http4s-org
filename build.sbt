@@ -14,7 +14,6 @@ lazy val core = project
     addSbtPlugin("com.codecommit" % "sbt-spiewak" % "0.17.0"),
     addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.15"),
     addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.6.0"),
-    addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
   )
 
