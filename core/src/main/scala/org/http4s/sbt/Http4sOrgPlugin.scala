@@ -31,25 +31,28 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires =
     ScalafmtPlugin &&
-    SpiewakPlugin
+      SpiewakPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings
 
   override val buildSettings: Seq[Setting[_]] =
-    addCommandAlias("ci", List(
-      "project /",
-      "headerCheck",
-      "test:headerCheck",
-      "scalafmtCheckAll",
-      "scalafmtSbtCheck",
-      "clean",
-      "mimaReportBinaryIssuesIfRelevant",
-      "undeclaredCompileDependencies",
-      "unusedCompileDependenices",
-      "testIfRelevant",
-      "doc",
-    ).mkString("; ", "; ", ""))
+    addCommandAlias(
+      "ci",
+      List(
+        "project /",
+        "headerCheck",
+        "test:headerCheck",
+        "scalafmtCheckAll",
+        "scalafmtSbtCheck",
+        "clean",
+        "mimaReportBinaryIssuesIfRelevant",
+        "undeclaredCompileDependencies",
+        "unusedCompileDependenices",
+        "testIfRelevant",
+        "doc"
+      ).mkString("; ", "; ", "")
+    )
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -64,7 +67,6 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"), name = Some("Release"))),
       githubWorkflowPublishTargetBranches :=
         Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
-      githubWorkflowBuild := Seq(
-        WorkflowStep.Sbt(List("ci")))
+      githubWorkflowBuild := Seq(WorkflowStep.Sbt(List("ci")))
     )
 }
