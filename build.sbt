@@ -1,5 +1,3 @@
-import de.heikoseeberger.sbtheader.{LicenseDetection, LicenseStyle}
-
 // Projects
 lazy val `sbt-http4s-org` = project
   .in(file("."))
@@ -24,17 +22,6 @@ lazy val core = project
 lazy val commonSettings = Seq(
   crossScalaVersions := Seq("2.12.12"),
   scalaVersion := crossScalaVersions.value.head,
-  headerLicenseStyle := LicenseStyle.SpdxSyntax,
-  headerLicense := {
-    val current = java.time.Year.now().getValue
-    val copyrightYear = startYear.value.fold(current.toString)(start => s"$start-$current")
-    LicenseDetection(
-      licenses.value.toList,
-      organizationName.value,
-      Some(copyrightYear),
-      headerLicenseStyle.value
-    )
-  }
 )
 
 // General Settings
