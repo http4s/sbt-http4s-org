@@ -19,17 +19,18 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
+import de.heikoseeberger.sbtheader.{LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
+import sbtspiewak._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires = AutomateHeaderPlugin
+  override def requires = SpiewakPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
