@@ -23,18 +23,18 @@ import de.heikoseeberger.sbtheader.{LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
-import sbtspiewak._
+import sbtspiewak._, SonatypeCiRelease.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires = SpiewakPlugin
+  override def requires = SpiewakPlugin && SonatypeCiRelease
 
   override def buildSettings = organizationSettings
 
-  override def projectSettings = headerSettings
+  override def projectSettings = headerSettings ++ githubActionsSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -59,11 +59,8 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
+      spiewakMainBranches := Seq("main"),
       githubWorkflowJavaVersions := List("adopt@1.8", "adopt@1.11", "adopt@1.15"),
-      githubWorkflowTargetTags ++= Seq("v*"),
-      githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"), name = Some("Release"))),
-      githubWorkflowPublishTargetBranches :=
-        Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
       githubWorkflowBuild := Seq(
         WorkflowStep
           .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
