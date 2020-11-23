@@ -11,14 +11,8 @@ lazy val core = project
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-http4s-org",
-    addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.4.6"),
-    addSbtPlugin("com.codecommit" % "sbt-github-actions" % "0.9.4"),
-    addSbtPlugin("com.github.cb372" % "sbt-explicit-dependencies" % "0.2.15"),
+    addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.18.0"),
     addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.6.0"),
-    addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.8.1"),
-    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0"),
-    addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.6.0"),
-    addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
   )
 

@@ -25,7 +25,6 @@ import dotty.tools.sbtplugin.DottyPlugin.autoImport._
 import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import java.lang.{Runtime => JRuntime}
-import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
 import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
@@ -38,7 +37,6 @@ object Http4sOrgPlugin extends AutoPlugin {
   override def requires =
     AutomateHeaderPlugin &&
       DottyPlugin &&
-      MimaVersionCheck &&
       ScalafmtPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
