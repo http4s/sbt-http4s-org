@@ -21,7 +21,6 @@ import sbt.Keys._
 
 import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
-import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
 
@@ -30,9 +29,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  override def requires =
-    AutomateHeaderPlugin &&
-      ScalafmtPlugin
+  override def requires = AutomateHeaderPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
