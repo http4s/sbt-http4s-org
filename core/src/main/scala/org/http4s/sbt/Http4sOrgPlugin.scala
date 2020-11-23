@@ -32,9 +32,9 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires = SpiewakPlugin
 
-  override lazy val projectSettings: Seq[Setting[_]] =
-    organizationSettings ++
-      headerSettings
+  override def buildSettings = organizationSettings
+
+  override def projectSettings = headerSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
