@@ -19,12 +19,8 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import com.typesafe.sbt.SbtGit.git
-import dotty.tools.sbtplugin.DottyPlugin
-import dotty.tools.sbtplugin.DottyPlugin.autoImport._
 import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
-import java.lang.{Runtime => JRuntime}
 import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
@@ -36,50 +32,16 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires =
     AutomateHeaderPlugin &&
-      DottyPlugin &&
       ScalafmtPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
-      scalaSettings ++
-      docSettings ++
       headerSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
       organization := "org.http4s",
       organizationName := "http4s.org"
-    )
-
-  val scalaSettings: Seq[Setting[_]] =
-    Seq(
-      scalacOptions ++= {
-        if (isDotty.value) Seq.empty
-        else
-          Seq(
-            "-Ybackend-parallelism",
-            math.min(JRuntime.getRuntime.availableProcessors, 16).toString
-          )
-      }
-    )
-
-  val docSettings: Seq[Setting[_]] =
-    Seq(
-      Compile / doc / scalacOptions ++= {
-        (for {
-          headCommit <- git.gitHeadCommit.value
-          isSnapshot = git.gitCurrentTags.value.map(git.gitTagToVersionNumber.value).flatten.isEmpty
-          ref = if (isSnapshot) headCommit else s"v${version.value}"
-          scm <- scmInfo.value
-          browseUrl = scm.browseUrl
-          path = s"${browseUrl}/blob/${ref}€{FILE_PATH}.scala"
-        } yield Seq(
-          "-doc-source-url",
-          path,
-          "-sourcepath",
-          baseDirectory.in(LocalRootProject).value.getAbsolutePath
-        )).getOrElse(Seq.empty[String])
-      }
     )
 
   val headerSettings: Seq[Setting[_]] =
