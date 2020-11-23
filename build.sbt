@@ -12,7 +12,6 @@ lazy val core = project
   .settings(
     name := "sbt-http4s-org",
     addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.18.0"),
-    addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.6.0"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
   )
 
