@@ -97,8 +97,8 @@ object Http4sOrgPlugin extends AutoPlugin {
         WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
         WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
         WorkflowStep.Sbt(
-          List("undeclaredCompileDependencies", "unusedCompileDependenciesTest"),
-          name = Some("Check explicit dependencies")),
+          List("unusedCompileDependenciesTest"),
+          name = Some("Check unused compile dependencies")),
         WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
         WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
       )
