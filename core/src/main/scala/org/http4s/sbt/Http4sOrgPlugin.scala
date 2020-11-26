@@ -6,8 +6,6 @@ import sbt.Keys._
 import com.typesafe.sbt.SbtGit.git
 import dotty.tools.sbtplugin.DottyPlugin
 import dotty.tools.sbtplugin.DottyPlugin.autoImport._
-import de.heikoseeberger.sbtheader.{AutomateHeaderPlugin, LicenseDetection, LicenseStyle}
-import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import java.lang.{Runtime => JRuntime}
 import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
 import org.scalafmt.sbt.ScalafmtPlugin
@@ -20,16 +18,14 @@ object Http4sOrgPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override def requires =
-    AutomateHeaderPlugin &&
-      DottyPlugin &&
+    DottyPlugin &&
       MimaVersionCheck &&
       ScalafmtPlugin
 
   override lazy val projectSettings: Seq[Setting[_]] =
     organizationSettings ++
       scalaSettings ++
-      docSettings ++
-      headerSettings
+      docSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -65,21 +61,6 @@ object Http4sOrgPlugin extends AutoPlugin {
           "-sourcepath",
           baseDirectory.in(LocalRootProject).value.getAbsolutePath
         )).getOrElse(Seq.empty[String])
-      }
-    )
-
-  val headerSettings: Seq[Setting[_]] =
-    Seq(
-      headerLicenseStyle := LicenseStyle.SpdxSyntax,
-      headerLicense := {
-        val current = java.time.Year.now().getValue
-        val copyrightYear = startYear.value.fold(current.toString)(start => s"$start-$current")
-        LicenseDetection(
-          licenses.value.toList,
-          organizationName.value,
-          Some(copyrightYear),
-          headerLicenseStyle.value
-        )
       }
     )
 
