@@ -19,8 +19,6 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import de.heikoseeberger.sbtheader.{LicenseDetection, LicenseStyle}
-import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
 import sbtspiewak._, SonatypeCiRelease.autoImport._
@@ -34,27 +32,12 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def buildSettings = organizationSettings
 
-  override def projectSettings = headerSettings ++ githubActionsSettings
+  override def projectSettings = githubActionsSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
       organization := "org.http4s",
       organizationName := "http4s.org"
-    )
-
-  val headerSettings: Seq[Setting[_]] =
-    Seq(
-      headerLicenseStyle := LicenseStyle.SpdxSyntax,
-      headerLicense := {
-        val current = java.time.Year.now().getValue
-        val copyrightYear = startYear.value.fold(current.toString)(start => s"$start-$current")
-        LicenseDetection(
-          licenses.value.toList,
-          organizationName.value,
-          Some(copyrightYear),
-          headerLicenseStyle.value
-        )
-      }
     )
 
   val githubActionsSettings: Seq[Setting[_]] =
@@ -64,12 +47,12 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowBuild := Seq(
         WorkflowStep
           .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
-        WorkflowStep.Sbt(List("headerCheck", "test:headerCheck"), name = Some("Check headers")),
+        WorkflowStep.Sbt(List("headerCheckAll"), name = Some("Check headers")),
         WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
         WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
         WorkflowStep.Sbt(
-          List("undeclaredCompileDependencies", "unusedCompileDependenciesTest"),
-          name = Some("Check explicit dependencies")),
+          List("unusedCompileDependenciesTest"),
+          name = Some("Check unused compile dependencies")),
         WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
         WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
       )
