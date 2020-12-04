@@ -1,31 +1,38 @@
+/*
+ * Copyright 2020 http4s.org
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.http4s.sbt
 
 import sbt._
 import sbt.Keys._
 
-import com.typesafe.sbt.SbtGit.git
-import dotty.tools.sbtplugin.DottyPlugin
-import dotty.tools.sbtplugin.DottyPlugin.autoImport._
-import java.lang.{Runtime => JRuntime}
-import _root_.io.chrisdavenport.sbtmimaversioncheck.MimaVersionCheck
-import org.scalafmt.sbt.ScalafmtPlugin
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
+import sbtspiewak._, SonatypeCiRelease.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires =
-    DottyPlugin &&
-      MimaVersionCheck &&
-      ScalafmtPlugin
+  override def requires = SpiewakPlugin && SonatypeCiRelease
 
-  override lazy val projectSettings: Seq[Setting[_]] =
-    organizationSettings ++
-      scalaSettings ++
-      docSettings
+  override def buildSettings = organizationSettings
+
+  override def projectSettings = githubActionsSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -33,44 +40,10 @@ object Http4sOrgPlugin extends AutoPlugin {
       organizationName := "http4s.org"
     )
 
-  val scalaSettings: Seq[Setting[_]] =
-    Seq(
-      scalacOptions ++= {
-        if (isDotty.value) Seq.empty
-        else
-          Seq(
-            "-Ybackend-parallelism",
-            math.min(JRuntime.getRuntime.availableProcessors, 16).toString
-          )
-      }
-    )
-
-  val docSettings: Seq[Setting[_]] =
-    Seq(
-      Compile / doc / scalacOptions ++= {
-        (for {
-          headCommit <- git.gitHeadCommit.value
-          isSnapshot = git.gitCurrentTags.value.map(git.gitTagToVersionNumber.value).flatten.isEmpty
-          ref = if (isSnapshot) headCommit else s"v${version.value}"
-          scm <- scmInfo.value
-          browseUrl = scm.browseUrl
-          path = s"${browseUrl}/blob/${ref}€{FILE_PATH}.scala"
-        } yield Seq(
-          "-doc-source-url",
-          path,
-          "-sourcepath",
-          baseDirectory.in(LocalRootProject).value.getAbsolutePath
-        )).getOrElse(Seq.empty[String])
-      }
-    )
-
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
+      spiewakMainBranches := Seq("main"),
       githubWorkflowJavaVersions := List("adopt@1.8", "adopt@1.11", "adopt@1.15"),
-      githubWorkflowTargetTags ++= Seq("v*"),
-      githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"), name = Some("Release"))),
-      githubWorkflowPublishTargetBranches :=
-        Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
       githubWorkflowBuild := Seq(
         WorkflowStep
           .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
