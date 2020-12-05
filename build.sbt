@@ -12,7 +12,8 @@ lazy val core = project
   .settings(
     name := "sbt-http4s-org",
     addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.18.3"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
+    publishMavenStyle := true,
   )
 
 // General Settings
