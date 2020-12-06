@@ -1,4 +1,4 @@
-enablePlugins(SonatypeCiRelease)
+enablePlugins(SonatypeCiReleasePlugin)
 
 // Projects
 lazy val `sbt-http4s-org` = project
@@ -11,9 +11,8 @@ lazy val core = project
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-http4s-org",
-    addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.18.3"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2"),
-    publishMavenStyle := true,
+    addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.19.1"),
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
   )
 
 // General Settings
@@ -23,7 +22,7 @@ inThisBuild(
     organizationName := "http4s.org",
     publishGithubUser := "rossabaker",
     publishFullName := "Ross A. Baker",
-    baseVersion := "0.5",
+    baseVersion := "0.6",
     crossScalaVersions := Seq("2.12.12"),
     developers := List(
       Developer(

@@ -28,7 +28,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  override def requires = SpiewakPlugin && SonatypeCiRelease
+  override def requires = SpiewakPlugin && SonatypeCiReleasePlugin
 
   override def buildSettings = organizationSettings
 
