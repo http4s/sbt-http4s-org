@@ -32,6 +32,10 @@ inThisBuild(
         url("https://github.com/rossabaker"))
     ),
     homepage := Some(url("https://github.com/http4s/sbt-http4s-org")),
+    scmInfo := Some(
+      ScmInfo(
+        url("https://github.com/http4s/sbt-http4s-org.git"),
+        "git@github.com:http4s/sbt-http4s-org.git")),
     licenses := Seq("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.html")),
     githubWorkflowTargetTags ++= Seq("v*"),
     githubWorkflowBuild := Seq(
