@@ -21,7 +21,7 @@ import sbt.Keys._
 
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
-import sbtspiewak._, SonatypeCiRelease.autoImport._
+import sbtspiewak._, SonatypeCiReleasePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
