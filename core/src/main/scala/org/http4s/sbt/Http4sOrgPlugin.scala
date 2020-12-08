@@ -21,14 +21,14 @@ import sbt.Keys._
 
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
-import sbtspiewak._, SonatypeCiRelease.autoImport._
+import sbtspiewak._, SonatypeCiReleasePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires = SpiewakPlugin && SonatypeCiRelease
+  override def requires = SpiewakPlugin && SonatypeCiReleasePlugin
 
   override def buildSettings = organizationSettings
 
