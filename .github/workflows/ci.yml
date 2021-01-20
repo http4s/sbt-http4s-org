@@ -58,6 +58,9 @@ jobs:
       - name: Check formatting
         run: sbt ++${{ matrix.scala }} scalafmtCheckAll scalafmtSbtCheck
 
+      - name: Check headers
+        run: sbt ++${{ matrix.scala }} headerCheckAll
+
       - name: Compile
         run: 'sbt ++${{ matrix.scala }} test:compile'
 

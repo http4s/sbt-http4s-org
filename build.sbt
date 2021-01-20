@@ -41,6 +41,8 @@ inThisBuild(
     githubWorkflowBuild := Seq(
       WorkflowStep
         .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
+      WorkflowStep
+        .Sbt(List("headerCheckAll"), name = Some("Check headers")),      
       WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
       WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
       WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
