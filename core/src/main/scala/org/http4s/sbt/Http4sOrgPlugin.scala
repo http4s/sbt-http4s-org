@@ -19,6 +19,7 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
+import com.typesafe.sbt.SbtGit.git
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
 import sbtspiewak._, SonatypeCiReleasePlugin.autoImport._
@@ -30,9 +31,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires = SpiewakPlugin && SonatypeCiReleasePlugin
 
-  override def buildSettings = organizationSettings
-
-  override def projectSettings = githubActionsSettings
+  override def buildSettings = organizationSettings ++ githubActionsSettings ++ http4sStyleSnapshots
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -55,6 +54,25 @@ object Http4sOrgPlugin extends AutoPlugin {
           name = Some("Check unused compile dependencies")),
         WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
         WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
+      ),
+      githubWorkflowBuildMatrixFailFast := Some(false),
+      githubWorkflowArtifactUpload := false,
+      githubWorkflowTargetBranches := Seq("**")
+    )
+
+  val http4sStyleSnapshots: Seq[Setting[_]] =
+    Seq(
+      isSnapshot :=
+        git.gitCurrentTags.value.isEmpty || git.gitUncommittedChanges.value,
+      version := {
+        val v = version.value
+        val suffix = "-SNAPSHOT"
+        if (isSnapshot.value && !v.endsWith(suffix)) v + suffix else v
+      },
+      githubWorkflowPublish := Seq(
+        WorkflowStep.Sbt(List("+publish")),
+        WorkflowStep
+          .Sbt(List("sonatypeBundleRelease"), cond = Some("startsWith(github.ref, 'refs/tags/v')"))
       )
     )
 }
