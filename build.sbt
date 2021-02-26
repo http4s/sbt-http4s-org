@@ -23,7 +23,7 @@ inThisBuild(
     publishGithubUser := "rossabaker",
     publishFullName := "Ross A. Baker",
     baseVersion := "0.7",
-    crossScalaVersions := Seq("2.12.13"),
+    crossScalaVersions := Seq("2.13.5"),
     developers := List(
       Developer(
         "rossabaker",
