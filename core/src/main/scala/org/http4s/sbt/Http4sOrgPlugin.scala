@@ -42,7 +42,7 @@ object Http4sOrgPlugin extends AutoPlugin {
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       spiewakMainBranches := Seq("main"),
-      githubWorkflowJavaVersions := List("adopt@1.8", "adopt@1.11", "adopt@1.16"),
+      githubWorkflowJavaVersions := List("adopt@1.8", "adopt@1.11", "adopt@1.15"),
       githubWorkflowBuild := Seq(
         WorkflowStep
           .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
