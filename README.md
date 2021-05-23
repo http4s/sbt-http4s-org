@@ -21,10 +21,3 @@ Triggers automatically.  Use on all http4s modules.
 * Sets the organization info
 * Enables automated SPDX license headers with appropriate years
 * Enables [sbt-github-actions](https://github.com/djspiewak/sbt-github-actions) with settings appropriate to our workflow
-
-### `AlpnBootPlugin`
-
-Enable with `enablePlugins(AlpnBootPlugin)`.
-Use on example projects that require ALPN support.
-
-* Sets up `-Xbootclasspath` for [ALPN](https://www.eclipse.org/jetty/documentation/current/alpn-chapter.html). Useful primarily for example projects.
