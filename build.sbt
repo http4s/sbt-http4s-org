@@ -11,7 +11,7 @@ lazy val core = project
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-http4s-org",
-    addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.22.1"),
+    addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.23.0"),
     addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.5")
   )
 
@@ -48,7 +48,7 @@ inThisBuild(
       WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
       WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
     ),
-    githubWorkflowJavaVersions := Seq("adoptium@8"),
+    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("8")),
     githubWorkflowEnv += ("JABBA_INDEX" -> "https://github.com/typelevel/jdk-index/raw/main/index.json"),
     spiewakMainBranches := Seq("main")
   ))
