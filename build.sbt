@@ -12,7 +12,7 @@ lazy val core = project
   .settings(
     name := "sbt-http4s-org",
     addSbtPlugin("com.codecommit" % "sbt-spiewak-sonatype" % "0.22.1"),
-    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.4")
+    addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.5")
   )
 
 // General Settings
