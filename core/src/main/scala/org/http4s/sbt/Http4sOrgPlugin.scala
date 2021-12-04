@@ -42,7 +42,7 @@ object Http4sOrgPlugin extends AutoPlugin {
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       spiewakMainBranches := Seq("main"),
-      githubWorkflowJavaVersions := List("adoptium@8", "adoptium@11", "adoptium@17"),
+      githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
       githubWorkflowEnv += ("JABBA_INDEX" -> "https://github.com/typelevel/jdk-index/raw/main/index.json"),
       githubWorkflowBuild := Seq(
         WorkflowStep

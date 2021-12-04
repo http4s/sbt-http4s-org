@@ -48,7 +48,7 @@ inThisBuild(
       WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
       WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
     ),
-    githubWorkflowJavaVersions := Seq("adoptium@8"),
+    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("8")),
     githubWorkflowEnv += ("JABBA_INDEX" -> "https://github.com/typelevel/jdk-index/raw/main/index.json"),
     spiewakMainBranches := Seq("main")
   ))
