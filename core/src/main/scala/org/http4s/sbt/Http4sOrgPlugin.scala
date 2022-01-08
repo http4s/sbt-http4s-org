@@ -19,7 +19,6 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import com.typesafe.sbt.SbtGit.git
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
 import org.typelevel.sbt._, TypelevelSonatypeCiReleasePlugin.autoImport._
