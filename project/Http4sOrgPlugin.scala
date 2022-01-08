@@ -1,0 +1,1 @@
+../core/src/main/scala/org/http4s/sbt/Http4sOrgPlugin.scala

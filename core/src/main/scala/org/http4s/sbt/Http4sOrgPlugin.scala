@@ -22,16 +22,16 @@ import sbt.Keys._
 import com.typesafe.sbt.SbtGit.git
 import sbtghactions._
 import sbtghactions.GenerativeKeys._
-import sbtspiewak._, SonatypeCiReleasePlugin.autoImport._
+import org.typelevel.sbt._, TypelevelSonatypeCiReleasePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires = SpiewakPlugin && SonatypeCiReleasePlugin
+  override def requires = TypelevelPlugin
 
-  override def buildSettings = organizationSettings ++ githubActionsSettings ++ http4sStyleSnapshots
+  override def buildSettings = organizationSettings ++ githubActionsSettings
 
   val organizationSettings: Seq[Setting[_]] =
     Seq(
@@ -41,39 +41,15 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
-      spiewakMainBranches := Seq("main"),
+      tlCiReleaseBranches := Seq("main"),
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
-      githubWorkflowEnv += ("JABBA_INDEX" -> "https://github.com/typelevel/jdk-index/raw/main/index.json"),
-      githubWorkflowBuild := Seq(
-        WorkflowStep
-          .Sbt(List("scalafmtCheckAll", "scalafmtSbtCheck"), name = Some("Check formatting")),
-        WorkflowStep.Sbt(List("headerCheckAll"), name = Some("Check headers")),
-        WorkflowStep.Sbt(List("test:compile"), name = Some("Compile")),
-        WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
+      githubWorkflowBuild +=
         WorkflowStep.Sbt(
-          List("unusedCompileDependenciesTest"),
-          name = Some("Check unused compile dependencies")),
-        WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
-        WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
-      ),
+          List("doc"),
+          name = Some("Build docs"),
+          cond = Some("matrix.ci == '' || matrix.ci == 'ciJVM'")),
       githubWorkflowBuildMatrixFailFast := Some(false),
-      githubWorkflowArtifactUpload := false,
       githubWorkflowTargetBranches := Seq("**")
     )
 
-  val http4sStyleSnapshots: Seq[Setting[_]] =
-    Seq(
-      isSnapshot :=
-        git.gitCurrentTags.value.isEmpty || git.gitUncommittedChanges.value,
-      version := {
-        val v = version.value
-        val suffix = "-SNAPSHOT"
-        if (isSnapshot.value && !v.endsWith(suffix)) v + suffix else v
-      },
-      githubWorkflowPublish := Seq(
-        WorkflowStep.Sbt(List("+publish")),
-        WorkflowStep
-          .Sbt(List("sonatypeBundleRelease"), cond = Some("startsWith(github.ref, 'refs/tags/v')"))
-      )
-    )
 }
