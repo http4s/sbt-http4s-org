@@ -19,8 +19,7 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import sbtghactions._
-import sbtghactions.GenerativeKeys._
+import org.typelevel.sbt.gha._, GenerativeKeys._
 import org.typelevel.sbt._, TypelevelSonatypeCiReleasePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
@@ -40,13 +39,13 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
-      tlCiReleaseBranches := Seq("main"),
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
-      githubWorkflowBuild +=
+      githubWorkflowBuild ++= Seq(
         WorkflowStep.Sbt(
-          List("doc"),
-          name = Some("Build docs"),
-          cond = Some("matrix.ci == '' || matrix.ci == 'ciJVM'")),
+          List("unusedCompileDependenciesTest"),
+          name = Some("Check unused compile dependencies")),
+        WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
+      ),
       githubWorkflowBuildMatrixFailFast := Some(false),
       githubWorkflowTargetBranches := Seq("**")
     )
