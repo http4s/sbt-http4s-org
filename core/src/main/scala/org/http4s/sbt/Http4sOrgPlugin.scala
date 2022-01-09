@@ -19,6 +19,7 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
+import explicitdeps.ExplicitDepsPlugin
 import org.typelevel.sbt.gha._, GenerativeKeys._
 import org.typelevel.sbt._, TypelevelSonatypeCiReleasePlugin.autoImport._
 
@@ -27,7 +28,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  override def requires = TypelevelPlugin
+  override def requires = TypelevelPlugin && ExplicitDepsPlugin
 
   override def buildSettings = organizationSettings ++ githubActionsSettings
 
