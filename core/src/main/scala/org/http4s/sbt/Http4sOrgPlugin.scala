@@ -21,7 +21,7 @@ import sbt.Keys._
 
 import explicitdeps.ExplicitDepsPlugin
 import org.typelevel.sbt.gha._, GenerativeKeys._
-import org.typelevel.sbt._, TypelevelSonatypeCiReleasePlugin.autoImport._
+import org.typelevel.sbt._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
