@@ -41,7 +41,7 @@ object Http4sOrgPlugin extends AutoPlugin {
   val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
-      githubWorkflowBuild ++= Seq(
+      githubWorkflowBuildPostamble ++= Seq(
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
           name = Some("Check unused compile dependencies")),
