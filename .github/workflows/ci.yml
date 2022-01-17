@@ -77,16 +77,16 @@ jobs:
         run: sbt '++${{ matrix.scala }}' headerCheckAll scalafmtCheckAll 'project /' scalafmtSbtCheck
 
       - name: Test
-        run: sbt '++${{ matrix.scala }}' clean test
+        run: sbt '++${{ matrix.scala }}' test
 
       - name: Check binary compatibility
         run: sbt '++${{ matrix.scala }}' mimaReportBinaryIssues
 
+      - name: Generate API documentation
+        run: sbt '++${{ matrix.scala }}' doc
+
       - name: Check unused compile dependencies
         run: sbt '++${{ matrix.scala }}' unusedCompileDependenciesTest
-
-      - name: Build docs
-        run: sbt '++${{ matrix.scala }}' doc
 
       - name: Make target directories
         run: mkdir -p target core/target project/target

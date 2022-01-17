@@ -44,8 +44,7 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowBuildPostamble ++= Seq(
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
-          name = Some("Check unused compile dependencies")),
-        WorkflowStep.Sbt(List("doc"), name = Some("Build docs"))
+          name = Some("Check unused compile dependencies"))
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
       githubWorkflowTargetBranches := Seq("**")
