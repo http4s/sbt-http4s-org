@@ -21,6 +21,7 @@ import laika.ast.LengthUnit._
 import laika.ast.Path.Root
 import laika.ast._
 import laika.helium.Helium
+import laika.helium.config.Favicon
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
 import laika.helium.config.ImageLink
@@ -78,13 +79,13 @@ object Http4sOrgSitePlugin extends AutoPlugin {
             (Color.hex("334044"), Color.hex("5B7980")) // only used for landing page background
         )
         .site
-        // .favIcons(
-        //   Favicon
-        //     .external("https://http4s.org/images/http4s-favicon.svg", "32x32", "image/svg+xml")
-        //     .copy(sizes = None),
-        //   Favicon.external("https://http4s.org/images/http4s-favicon.png", "32x32", "image/png")
-        // )
-        // .site
+        .favIcons(
+          Favicon
+            .external("https://http4s.org/images/http4s-favicon.svg", "32x32", "image/svg+xml")
+            .copy(sizes = None),
+          Favicon.external("https://http4s.org/images/http4s-favicon.png", "32x32", "image/png")
+        )
+        .site
         .darkMode
         .disabled
         .site
