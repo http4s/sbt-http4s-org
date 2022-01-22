@@ -44,11 +44,11 @@ object Http4sOrgSitePlugin extends AutoPlugin {
       // Laika natively supports classpath resources but there's something fiddly with that in sbt
       _.delegate
         .addStream(
-          IO.blocking(getClass.getResourceAsStream("/default.template.html")),
+          IO.blocking(getClass.getResourceAsStream("default.template.html")),
           DefaultTemplatePath.forHTML
         )
         .addStream(
-          IO.blocking(getClass.getResourceAsStream("/site/styles.css")),
+          IO.blocking(getClass.getResourceAsStream("site/styles.css")),
           Root / "site" / "styles.css"
         )
     },
