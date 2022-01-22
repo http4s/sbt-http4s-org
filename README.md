@@ -8,7 +8,7 @@ If it's useful outside http4s.org, it probably should be pushed further upstream
 The plugin is deployed to Sonatype.
 
 ```scala
-addSbtPlugin("org.http4s" % "sbt-http4s-org" % http4sOrgV)
+addSbtPlugin("org.http4s" % "sbt-http4s-org" % "@VERSION@")
 ```
 
 ## What does it do?
