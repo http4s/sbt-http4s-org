@@ -17,31 +17,31 @@
 package org.http4s.sbt
 
 import sbt._
-import sbt.Keys._
 
+import explicitdeps.ExplicitDepsPlugin
 import org.typelevel.sbt.gha._, GenerativeKeys._
-import org.typelevel.sbt._
+import sbtcrossproject.CrossPlugin
+import sbtcrossproject.CrossPlugin.autoImport._
 
-object Http4sOrgPlugin extends AutoPlugin {
+object Http4sOrgCrossPlugin extends AutoPlugin {
   object autoImport
 
   override def trigger = allRequirements
 
-  override def requires = TypelevelPlugin
+  override def requires = Http4sOrgPlugin && ExplicitDepsPlugin && CrossPlugin
 
-  override def buildSettings = organizationSettings ++ githubActionsSettings
-
-  val organizationSettings: Seq[Setting[_]] =
-    Seq(
-      organization := "org.http4s",
-      organizationName := "http4s.org"
-    )
-
-  val githubActionsSettings: Seq[Setting[_]] =
-    Seq(
-      githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
-      githubWorkflowBuildMatrixFailFast := Some(false),
-      githubWorkflowTargetBranches := Seq("**")
-    )
-
+  override def buildSettings: Seq[Setting[_]] = Seq(
+    githubWorkflowBuildPostamble ++= {
+      // unusedCompileDependenciesTest only works on the JVM
+      crossProjectPlatform.value match {
+        case JVMPlatform =>
+          Seq(
+            WorkflowStep.Sbt(
+              List("unusedCompileDependenciesTest"),
+              name = Some("Check unused compile dependencies")))
+        case _ =>
+          Seq.empty
+      }
+    }
+  )
 }
