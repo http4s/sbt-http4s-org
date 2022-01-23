@@ -13,6 +13,8 @@ lazy val core = project
     name := "sbt-http4s-org"
   )
 
+lazy val docs = project.in(file("site")).enablePlugins(Http4sOrgSitePlugin)
+
 ThisBuild / tlBaseVersion := "0.10"
 ThisBuild / crossScalaVersions := Seq("2.12.15")
 ThisBuild / developers := List(
