@@ -44,10 +44,17 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowBuildPostamble ++= Seq(
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
-          name = Some("Check unused compile dependencies"))
+          name = Some("Check unused compile dependencies"),
+          cond = Some(primaryJavaCond.value)
+        )
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
       githubWorkflowTargetBranches := Seq("**")
     )
+
+  private val primaryJavaCond = Def.setting {
+    val java = githubWorkflowJavaVersions.value.head
+    s"matrix.java == '${java.render}'"
+  }
 
 }
