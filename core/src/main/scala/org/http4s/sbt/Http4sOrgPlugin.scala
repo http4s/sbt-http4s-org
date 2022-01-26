@@ -32,13 +32,13 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def buildSettings = organizationSettings ++ githubActionsSettings
 
-  val organizationSettings: Seq[Setting[_]] =
+  lazy val organizationSettings: Seq[Setting[_]] =
     Seq(
       organization := "org.http4s",
       organizationName := "http4s.org"
     )
 
-  val githubActionsSettings: Seq[Setting[_]] =
+  lazy val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
       githubWorkflowBuildPostamble ++= Seq(
