@@ -32,22 +32,29 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def buildSettings = organizationSettings ++ githubActionsSettings
 
-  val organizationSettings: Seq[Setting[_]] =
+  lazy val organizationSettings: Seq[Setting[_]] =
     Seq(
       organization := "org.http4s",
       organizationName := "http4s.org"
     )
 
-  val githubActionsSettings: Seq[Setting[_]] =
+  lazy val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
       githubWorkflowBuildPostamble ++= Seq(
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
-          name = Some("Check unused compile dependencies"))
+          name = Some("Check unused compile dependencies"),
+          cond = Some(primaryJavaCond.value)
+        )
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
       githubWorkflowTargetBranches := Seq("**")
     )
+
+  private val primaryJavaCond = Def.setting {
+    val java = githubWorkflowJavaVersions.value.head
+    s"matrix.java == '${java.render}'"
+  }
 
 }
