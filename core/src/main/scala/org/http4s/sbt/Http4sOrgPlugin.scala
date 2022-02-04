@@ -21,7 +21,7 @@ import sbt.Keys._
 
 import explicitdeps.ExplicitDepsPlugin
 import org.typelevel.sbt.gha._, GenerativeKeys._
-import org.typelevel.sbt._
+import org.typelevel.sbt._, TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
@@ -30,7 +30,12 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def requires = TypelevelPlugin && ExplicitDepsPlugin
 
-  override def buildSettings = organizationSettings ++ githubActionsSettings
+  override def buildSettings = publishSettings ++ organizationSettings ++ githubActionsSettings
+
+  lazy val publishSettings: Seq[Setting[_]] =
+    Seq(
+      tlSonatypeUseLegacyHost := false
+    )
 
   lazy val organizationSettings: Seq[Setting[_]] =
     Seq(
