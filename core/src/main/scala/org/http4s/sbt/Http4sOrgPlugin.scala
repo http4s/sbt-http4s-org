@@ -19,9 +19,11 @@ package org.http4s.sbt
 import sbt._
 import sbt.Keys._
 
-import explicitdeps.ExplicitDepsPlugin
+import explicitdeps.ExplicitDepsPlugin, ExplicitDepsPlugin.autoImport._
 import org.typelevel.sbt.gha._, GenerativeKeys._
-import org.typelevel.sbt._, TypelevelSonatypePlugin.autoImport._
+import org.typelevel.sbt._
+import TypelevelKernelPlugin._, autoImport._
+import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   object autoImport
@@ -31,6 +33,8 @@ object Http4sOrgPlugin extends AutoPlugin {
   override def requires = TypelevelPlugin && ExplicitDepsPlugin
 
   override def buildSettings = publishSettings ++ organizationSettings ++ githubActionsSettings
+
+  override def projectSettings = explicitDepsSettings
 
   lazy val publishSettings: Seq[Setting[_]] =
     Seq(
@@ -55,6 +59,16 @@ object Http4sOrgPlugin extends AutoPlugin {
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
       githubWorkflowTargetBranches := Seq("**")
+    )
+
+  lazy val explicitDepsSettings: Seq[Setting[_]] =
+    Seq(
+      unusedCompileDependenciesTest := {
+        if (tlSkipIrrelevantScalas.value && (unusedCompileDependenciesTest / skip).value)
+          ()
+        else unusedCompileDependenciesTest.value
+      },
+      skipIfIrrelevant(unusedCompileDependenciesTest)
     )
 
   private val primaryJavaCond = Def.setting {
