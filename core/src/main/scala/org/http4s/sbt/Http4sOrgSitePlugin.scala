@@ -36,27 +36,32 @@ object Http4sOrgSitePlugin extends AutoPlugin {
 
   override def requires = TypelevelSitePlugin && LaikaPlugin
 
+  import TypelevelGitHubPlugin.autoImport._
   import TypelevelSitePlugin.autoImport._
   import LaikaPlugin.autoImport._
 
   override def projectSettings: Seq[Setting[_]] = Seq(
-    laikaInputs ~= {
-      // Laika natively supports classpath resources but there's something fiddly with that in sbt
-      _.delegate
-        .addStream(
-          IO.blocking(getClass.getResourceAsStream("default.template.html")),
-          DefaultTemplatePath.forHTML
-        )
-        .addStream(
-          IO.blocking(getClass.getResourceAsStream("site/styles.css")),
-          Root / "site" / "styles.css"
-        )
+    tlSiteRelatedProjects := {
+      Seq(
+        "http4s" -> url("https://http4s.org/"),
+        "blaze" -> url("https://github.com/http4s/blaze"),
+        "http4s-jdk-http-client" -> url("https://jdk-http-client.http4s.org/"),
+        "http4s-dom" -> url("https://http4s.github.io/http4s-dom/"),
+        "rho" -> url("https://github.com/http4s/rho"),
+        "sbt-http4s-org" -> url("https://http4s.github.io/sbt-http4s-org/"),
+        "feral" -> url("https://github.com/typelevel/feral")
+      ).filterNot { case (repo, _) =>
+        tlGitHubRepo.value.contains(repo) // omit ourselves!
+      }
     },
+    laikaTheme ~= { _.extend(site.Http4sHeliumExtensions) },
     tlSiteHeliumConfig := {
       Helium.defaults.all
         .metadata(
+          title = tlGitHubRepo.value,
+          authors = developers.value.map(_.name),
           language = Some("en"),
-          title = Some("http4s")
+          version = Some(version.value.toString)
         )
         .site
         .layout(
@@ -80,19 +85,16 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         )
         .site
         .favIcons(
-          Favicon
-            .external("https://http4s.org/images/http4s-favicon.svg", "32x32", "image/svg+xml")
-            .copy(sizes = None),
-          Favicon.external("https://http4s.org/images/http4s-favicon.png", "32x32", "image/png")
+          Favicon.internal(Root / "images" / "http4s-favicon.svg", "32x32").copy(sizes = None),
+          Favicon.internal(Root / "images" / "http4s-favicon.png", "32x32")
         )
         .site
         .darkMode
         .disabled
         .site
         .topNavigationBar(
-          homeLink = ImageLink.external(
-            "https://http4s.org",
-            Image.external("https://http4s.org/v1.0/images/http4s-logo-text-dark-2.svg")),
+          homeLink = ImageLink
+            .external("https://http4s.org", Image.internal(Root / "images" / "http4s-logo.svg")),
           navLinks = tlSiteApiUrl.value.toList.map { url =>
             IconLink.external(
               url.toString,
