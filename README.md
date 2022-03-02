@@ -24,4 +24,4 @@ Triggers automatically.  Use on all http4s modules.
 
 ### `Http4sOrgSitePlugin`
 
-Must be manually triggered.  Extends the `TypelevelSitePlugin` with the http4s.org theme.  See the [sbt-typelevel-site docs](https://typelevel.org/sbt-typelevel/#how-do-i-publish-a-site-like-this-one) for usage.
+Must be manually triggered.  Extends the `TypelevelSitePlugin` with the http4s.org theme.  See the [sbt-typelevel-site docs](https://typelevel.org/sbt-typelevel/site.html) for usage.
