@@ -16,7 +16,6 @@
 
 package org.http4s.sbt
 
-import cats.effect.IO
 import laika.ast.LengthUnit._
 import laika.ast.Path.Root
 import laika.ast._
@@ -25,7 +24,6 @@ import laika.helium.config.Favicon
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
 import laika.helium.config.ImageLink
-import laika.rewrite.DefaultTemplatePath
 import laika.sbt.LaikaPlugin
 import laika.theme.config.Color
 import org.typelevel.sbt._
