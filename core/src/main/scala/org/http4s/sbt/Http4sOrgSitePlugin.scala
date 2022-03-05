@@ -92,7 +92,10 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         .site
         .topNavigationBar(
           homeLink = ImageLink
-            .external("https://http4s.org", Image.internal(Root / "images" / "http4s-logo.svg")),
+            .external(
+              "https://http4s.org",
+              Image.internal(Root / "images" / "http4s-logo-text-dark.svg")
+            ),
           navLinks = tlSiteApiUrl.value.toList.map { url =>
             IconLink.external(
               url.toString,

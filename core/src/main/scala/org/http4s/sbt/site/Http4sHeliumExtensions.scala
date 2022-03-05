@@ -32,10 +32,6 @@ object Http4sHeliumExtensions extends ThemeProvider {
       .addInputs(
         InputTree[F]
           .addStream(
-            F.blocking(getClass.getResourceAsStream("default.template.html")),
-            DefaultTemplatePath.forHTML
-          )
-          .addStream(
             F.blocking(getClass.getResourceAsStream("site/styles.css")),
             Path.Root / "site" / "styles.css"
           )
@@ -50,6 +46,14 @@ object Http4sHeliumExtensions extends ThemeProvider {
           .addStream(
             F.blocking(getClass.getResourceAsStream("images/http4s-logo.svg")),
             Path.Root / "images" / "http4s-logo.svg"
+          )
+          .addStream(
+            F.blocking(getClass.getResourceAsStream("images/http4s-logo-text-light.svg")),
+            Path.Root / "images" / "http4s-logo-text-light.svg"
+          )
+          .addStream(
+            F.blocking(getClass.getResourceAsStream("images/http4s-logo-text-dark.svg")),
+            Path.Root / "images" / "http4s-logo-text-dark.svg"
           )
       )
       .build
