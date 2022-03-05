@@ -20,7 +20,6 @@ import cats.effect.Resource
 import cats.effect.kernel.Sync
 import laika.ast.Path
 import laika.io.model.InputTree
-import laika.rewrite.DefaultTemplatePath
 import laika.theme.Theme
 import laika.theme.ThemeBuilder
 import laika.theme.ThemeProvider
