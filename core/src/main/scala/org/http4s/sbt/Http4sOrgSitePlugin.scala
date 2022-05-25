@@ -42,12 +42,34 @@ object Http4sOrgSitePlugin extends AutoPlugin {
     tlSiteRelatedProjects := {
       Seq(
         "http4s" -> url("https://http4s.org/"),
+        // Backends
         "blaze" -> url("https://github.com/http4s/blaze"),
-        "http4s-jdk-http-client" -> url("https://jdk-http-client.http4s.org/"),
+        "http4s-armeria" -> url("https://github.com/http4s/http4s-armeria"),
+        "http4s-async-http-client" -> url("https://github.com/http4s/http4s-async-http-client"),
         "http4s-dom" -> url("https://http4s.github.io/http4s-dom/"),
-        "rho" -> url("https://github.com/http4s/rho"),
+        "http4s-finagle" -> url("https://http4s.github.io/http4s-finagle/docs/"),
+        "http4s-jdk-http-client" -> url("https://jdk-http-client.http4s.org/"),
+        "http4s-jetty" -> url("https://github.com/http4s/http4s-jetty/"),
+        "http4s-netty" -> url("https://github.com/http4s/http4s-netty/"),
+        "http4s-okhttp-client" -> url("https://github.com/http4s/http4s-okhttp-client/"),
+        "http4s-servlet" -> url("https://http4s.github.io/http4s-servlet/"),
+        "http4s-tomcat" -> url("https://github.com/http4s/http4s-tomcat/"),
+        // Frontends
+        "rho" -> url("https://github.com/http4s/rho/"),
+        // Codecs
+        "http4s-boopickle" -> url("https://github.com/http4s/http4s-boopickle/"),
+        "http4s-fabric" -> url("https://github.com/http4s/http4s-fabric/"),
+        "http4s-play-json" -> url("https://github.com/http4s/http4s-play-json/"),
+        "http4s-scala-xml" -> url("https://http4s.github.io/http4s-scala-xml/"),
+        "http4s-scala-xml-1" -> url("https://github.com/http4s/http4s-scala-xml-1/"),
+        // Other
+        "http4s-scalatags" -> url("https://github.com/http4s/http4s-scalatags/"),
+        "http4s-session" -> url("https://http4s.github.io/http4s-session/"),
+        "http4s-twirl" -> url("https://github.com/http4s/http4s-twirl/"),
+        // Internals
         "sbt-http4s-org" -> url("https://http4s.github.io/sbt-http4s-org/"),
-        "feral" -> url("https://github.com/typelevel/feral")
+        // Third party
+        "feral" -> url("https://github.com/typelevel/feral/")
       ).filterNot { case (repo, _) =>
         tlGitHubRepo.value.contains(repo) // omit ourselves!
       }
