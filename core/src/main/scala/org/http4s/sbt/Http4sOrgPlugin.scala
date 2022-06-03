@@ -16,14 +16,17 @@
 
 package org.http4s.sbt
 
-import sbt._
-import sbt.Keys._
-
-import explicitdeps.ExplicitDepsPlugin, ExplicitDepsPlugin.autoImport._
-import org.typelevel.sbt.gha._, GenerativeKeys._
+import explicitdeps.ExplicitDepsPlugin
 import org.typelevel.sbt._
+import org.typelevel.sbt.gha._
+import sbt.Keys._
+import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
-import TypelevelKernelPlugin._, autoImport._
+
+import ExplicitDepsPlugin.autoImport._
+import GenerativeKeys._
+import TypelevelKernelPlugin._
+import autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
