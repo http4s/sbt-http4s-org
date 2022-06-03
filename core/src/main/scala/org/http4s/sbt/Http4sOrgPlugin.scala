@@ -22,6 +22,7 @@ import sbt.Keys._
 import explicitdeps.ExplicitDepsPlugin, ExplicitDepsPlugin.autoImport._
 import org.typelevel.sbt.gha._, GenerativeKeys._
 import org.typelevel.sbt._
+import scalafix.sbt.ScalafixPlugin.autoImport._
 import TypelevelKernelPlugin._, autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
@@ -30,9 +31,10 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  override def requires = TypelevelPlugin && ExplicitDepsPlugin
+  override def requires = TypelevelPlugin && TypelevelScalafixPlugin && ExplicitDepsPlugin
 
-  override def buildSettings = publishSettings ++ organizationSettings ++ githubActionsSettings
+  override def buildSettings =
+    publishSettings ++ organizationSettings ++ githubActionsSettings ++ scalafixSettings
 
   override def projectSettings = explicitDepsSettings
 
@@ -69,6 +71,14 @@ object Http4sOrgPlugin extends AutoPlugin {
         else unusedCompileDependenciesTest.value
       },
       skipIfIrrelevant(unusedCompileDependenciesTest)
+    )
+
+  lazy val scalafixSettings: Seq[Setting[_]] =
+    Seq(
+      scalafixDependencies ++= Seq(
+        "org.http4s" %% "http4s-scalafix-internal" % "0.23.12",
+        "com.github.liancheng" %% "organize-imports" % "0.6.0"
+      )
     )
 
   private val primaryJavaCond = Def.setting {

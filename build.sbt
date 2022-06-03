@@ -20,7 +20,7 @@ lazy val docs = project
     tlSiteRelatedProjects += "sbt-typelevel" -> url("https://typelevel.org/sbt-typelevel/")
   )
 
-ThisBuild / tlBaseVersion := "0.13"
+ThisBuild / tlBaseVersion := "0.14"
 ThisBuild / crossScalaVersions := Seq("2.12.15")
 ThisBuild / developers := List(
   Developer(
