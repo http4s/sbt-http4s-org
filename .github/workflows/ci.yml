@@ -108,10 +108,6 @@ jobs:
       - name: Test
         run: sbt '++${{ matrix.scala }}' test
 
-      - name: Check scalafix lints
-        if: matrix.java == 'temurin@8'
-        run: sbt '++${{ matrix.scala }}' 'scalafixAll --check'
-
       - name: Check binary compatibility
         if: matrix.java == 'temurin@8'
         run: sbt '++${{ matrix.scala }}' mimaReportBinaryIssues
@@ -119,6 +115,10 @@ jobs:
       - name: Generate API documentation
         if: matrix.java == 'temurin@8'
         run: sbt '++${{ matrix.scala }}' doc
+
+      - name: Check scalafix lints
+        if: matrix.java == 'temurin@8' && !startsWith(matrix.scala, '3.')
+        run: sbt '++${{ matrix.scala }}' 'scalafixAll --check'
 
       - name: Check unused compile dependencies
         if: matrix.java == 'temurin@8'
