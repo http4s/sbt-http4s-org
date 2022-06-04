@@ -27,6 +27,7 @@ import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
 import TypelevelKernelPlugin._
 import autoImport._
+import TypelevelCiPlugin.autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
@@ -55,7 +56,13 @@ object Http4sOrgPlugin extends AutoPlugin {
   lazy val githubActionsSettings: Seq[Setting[_]] =
     Seq(
       githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
+      tlCiScalafixCheck := false, // we add our own, that skips Scala 3
       githubWorkflowBuildPostamble ++= Seq(
+        WorkflowStep.Sbt(
+          List("scalafixAll --check"),
+          name = Some("Check scalafix lints"),
+          cond = Some(s"${primaryJavaCond.value} && !startsWith(matrix.scala, '3.')")
+        ),
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
           name = Some("Check unused compile dependencies"),
