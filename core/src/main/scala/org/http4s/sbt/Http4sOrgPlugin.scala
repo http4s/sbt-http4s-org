@@ -85,6 +85,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   lazy val scalafixSettings: Seq[Setting[_]] =
     Seq(
+      scalafixScalaBinaryVersion := scalaBinaryVersion.value,
       scalafixDependencies ++= Seq(
         "org.http4s" %% "http4s-scalafix-internal" % "0.23.12",
         "com.github.liancheng" %% "organize-imports" % "0.6.0"
