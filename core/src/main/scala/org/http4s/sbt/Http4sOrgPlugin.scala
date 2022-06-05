@@ -70,7 +70,6 @@ object Http4sOrgPlugin extends AutoPlugin {
         )
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
-      githubWorkflowTargetBranches := Seq("**")
     )
 
   lazy val explicitDepsSettings: Seq[Setting[_]] =
