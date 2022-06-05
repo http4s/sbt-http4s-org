@@ -69,7 +69,7 @@ object Http4sOrgPlugin extends AutoPlugin {
           cond = Some(primaryJavaCond.value)
         )
       ),
-      githubWorkflowBuildMatrixFailFast := Some(false),
+      githubWorkflowBuildMatrixFailFast := Some(false)
     )
 
   lazy val explicitDepsSettings: Seq[Setting[_]] =
