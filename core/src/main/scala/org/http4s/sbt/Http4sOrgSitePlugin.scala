@@ -62,6 +62,9 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         "http4s-play-json" -> url("https://github.com/http4s/http4s-play-json/"),
         "http4s-scala-xml" -> url("https://http4s.github.io/http4s-scala-xml/"),
         "http4s-scala-xml-1" -> url("https://github.com/http4s/http4s-scala-xml-1/"),
+        // Metrics
+        "http4s-dropwizard-metrics" -> url("https://http4s.github.io/http4s-dropwizard-metrics/"),
+        "http4s-prometheus-metrics" -> url("https://http4s.github.io/http4s-prometheus-metrics/"),
         // Other
         "http4s-scalatags" -> url("https://github.com/http4s/http4s-scalatags/"),
         "http4s-session" -> url("https://http4s.github.io/http4s-session/"),
