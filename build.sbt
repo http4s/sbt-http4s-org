@@ -21,7 +21,7 @@ lazy val docs = project
   )
 
 ThisBuild / tlBaseVersion := "0.14"
-ThisBuild / crossScalaVersions := Seq("2.12.16")
+ThisBuild / crossScalaVersions := Seq("2.12.17")
 ThisBuild / developers := List(
   Developer(
     "rossabaker",
