@@ -26,7 +26,8 @@ import laika.helium.config.IconLink
 import laika.helium.config.ImageLink
 import laika.sbt.LaikaPlugin
 import laika.theme.config.Color
-import org.typelevel.sbt._
+import org.typelevel.sbt.TypelevelGitHubPlugin
+import org.typelevel.sbt.TypelevelSitePlugin
 import sbt.Keys._
 import sbt._
 
