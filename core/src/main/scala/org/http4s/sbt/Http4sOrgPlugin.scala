@@ -40,8 +40,6 @@ object Http4sOrgPlugin extends AutoPlugin {
   override def buildSettings =
     publishSettings ++ organizationSettings ++ githubActionsSettings ++ scalafixSettings
 
-  override def projectSettings = explicitDepsSettings
-
   lazy val publishSettings: Seq[Setting[_]] =
     Seq(
       tlSonatypeUseLegacyHost := false

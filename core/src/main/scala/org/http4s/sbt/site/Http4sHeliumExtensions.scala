@@ -16,8 +16,7 @@
 
 package org.http4s.sbt.site
 
-import cats.effect.Resource
-import cats.effect.kernel.Sync
+import cats.effect.{Async, Resource}
 import laika.ast.Path
 import laika.io.model.InputTree
 import laika.theme.Theme
@@ -26,35 +25,23 @@ import laika.theme.ThemeProvider
 
 object Http4sHeliumExtensions extends ThemeProvider {
 
-  override def build[F[_]](implicit F: Sync[F]): Resource[F, Theme[F]] =
-    ThemeBuilder[F]("Typelevel Helium Extensions")
-      .addInputs(
-        InputTree[F]
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("site/styles.css")),
-            Path.Root / "site" / "styles.css"
-          )
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("images/http4s-favicon.png")),
-            Path.Root / "images" / "http4s-favicon.png"
-          )
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("images/http4s-favicon.svg")),
-            Path.Root / "images" / "http4s-favicon.svg"
-          )
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("images/http4s-logo.svg")),
-            Path.Root / "images" / "http4s-logo.svg"
-          )
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("images/http4s-logo-text-light.svg")),
-            Path.Root / "images" / "http4s-logo-text-light.svg"
-          )
-          .addStream(
-            F.blocking(getClass.getResourceAsStream("images/http4s-logo-text-dark.svg")),
-            Path.Root / "images" / "http4s-logo-text-dark.svg"
-          )
-      )
+  private val imageFileNames = Seq(
+    "http4s-favicon.png",
+    "http4s-favicon.svg",
+    "http4s-logo.svg",
+    "http4s-logo-text-light.svg",
+    "http4s-logo-text-dark.svg"
+  )
+
+  override def build[F[_]](implicit F: Async[F]): Resource[F, Theme[F]] = {
+
+    val inputs = imageFileNames.foldLeft(InputTree[F]) { case (inputTree, fileName) =>
+      inputTree.addClassResource[this.type](s"images/$fileName", Path.Root / "images" / fileName)
+    }
+
+    ThemeBuilder[F]("http4s Images")
+      .addInputs(inputs)
       .build
+  }
 
 }

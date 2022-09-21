@@ -16,9 +16,6 @@ lazy val core = project
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(Http4sOrgSitePlugin)
-  .settings(
-    tlSiteRelatedProjects += "sbt-typelevel" -> url("https://typelevel.org/sbt-typelevel/")
-  )
 
 ThisBuild / tlBaseVersion := "0.15"
 ThisBuild / crossScalaVersions := Seq("2.12.18")
