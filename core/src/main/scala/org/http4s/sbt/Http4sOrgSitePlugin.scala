@@ -47,6 +47,7 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         "blaze" -> url("https://github.com/http4s/blaze"),
         "http4s-armeria" -> url("https://github.com/http4s/http4s-armeria"),
         "http4s-async-http-client" -> url("https://github.com/http4s/http4s-async-http-client"),
+        "http4s-curl" -> url("https://github.com/http4s/http4s-curl/"),
         "http4s-dom" -> url("https://http4s.github.io/http4s-dom/"),
         "http4s-finagle" -> url("https://http4s.github.io/http4s-finagle/docs/"),
         "http4s-jdk-http-client" -> url("https://jdk-http-client.http4s.org/"),
