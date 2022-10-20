@@ -7,7 +7,6 @@ lazy val `sbt-http4s-org` = project
   .in(file("."))
   .enablePlugins(NoPublishPlugin)
   .aggregate(core)
-  .settings(unusedCompileDependenciesFilter -= moduleFilter("org.scala-lang", "scala-reflect"))
 
 lazy val core = project
   .in(file("core"))
