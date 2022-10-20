@@ -17,8 +17,9 @@
 package org.http4s.sbt
 
 import explicitdeps.ExplicitDepsPlugin
-import scala.scalanative.sbtplugin.ScalaNativePlugin
 import sbt._
+
+import scala.scalanative.sbtplugin.ScalaNativePlugin
 
 object Http4sOrgScalaNativePlugin extends AutoPlugin {
 
