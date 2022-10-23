@@ -1,5 +1,3 @@
-import explicitdeps.ExplicitDepsPlugin.autoImport.moduleFilterRemoveValue
-
 enablePlugins(TypelevelCiReleasePlugin)
 
 // Projects
