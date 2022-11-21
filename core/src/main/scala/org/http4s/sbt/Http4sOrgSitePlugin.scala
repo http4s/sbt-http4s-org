@@ -108,7 +108,6 @@ object Http4sOrgSitePlugin extends AutoPlugin {
               HeliumIcon.github,
               options = Styles("svg-link")),
             IconLink.external("https://discord.gg/XF3CXcMzqD", HeliumIcon.chat),
-            IconLink.external("https://twitter.com/http4s", HeliumIcon.twitter)
           )
         )
     }
