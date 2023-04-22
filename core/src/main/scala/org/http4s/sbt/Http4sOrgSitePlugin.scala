@@ -46,26 +46,21 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         // Backends
         "blaze" -> url("https://github.com/http4s/blaze"),
         "http4s-armeria" -> url("https://github.com/http4s/http4s-armeria"),
-        "http4s-async-http-client" -> url("https://github.com/http4s/http4s-async-http-client"),
         "http4s-curl" -> url("https://github.com/http4s/http4s-curl/"),
         "http4s-dom" -> url("https://http4s.github.io/http4s-dom/"),
         "http4s-finagle" -> url("https://http4s.github.io/http4s-finagle/docs/"),
         "http4s-jdk-http-client" -> url("https://jdk-http-client.http4s.org/"),
         "http4s-jetty" -> url("https://github.com/http4s/http4s-jetty/"),
         "http4s-netty" -> url("https://github.com/http4s/http4s-netty/"),
-        "http4s-okhttp-client" -> url("https://github.com/http4s/http4s-okhttp-client/"),
         "http4s-servlet" -> url("https://http4s.github.io/http4s-servlet/"),
-        "http4s-tomcat" -> url("https://github.com/http4s/http4s-tomcat/"),
         // Frontends
         "rho" -> url("https://github.com/http4s/rho/"),
         // Codecs
         "http4s-boopickle" -> url("https://github.com/http4s/http4s-boopickle/"),
         "http4s-fabric" -> url("https://github.com/http4s/http4s-fabric/"),
-        "http4s-play-json" -> url("https://github.com/http4s/http4s-play-json/"),
+        "http4s-fs2-data" -> url("https://http4s.github.io/http4s-fs2-data/"),
         "http4s-scala-xml" -> url("https://http4s.github.io/http4s-scala-xml/"),
-        "http4s-scala-xml-1" -> url("https://github.com/http4s/http4s-scala-xml-1/"),
         // Metrics
-        "http4s-dropwizard-metrics" -> url("https://http4s.github.io/http4s-dropwizard-metrics/"),
         "http4s-prometheus-metrics" -> url("https://http4s.github.io/http4s-prometheus-metrics/"),
         // Other
         "http4s-scalatags" -> url("https://github.com/http4s/http4s-scalatags/"),
