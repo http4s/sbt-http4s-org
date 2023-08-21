@@ -57,7 +57,7 @@ object Http4sOrgPlugin extends AutoPlugin {
         WorkflowStep.Sbt(
           List("scalafixAll --check"),
           name = Some("Check scalafix lints"),
-          cond = Some(s"${primaryJavaCond.value} && !startsWith(matrix.scala, '3.')")
+          cond = Some(s"${primaryJavaCond.value} && !startsWith(matrix.scala, '3')")
         ),
         WorkflowStep.Sbt(
           List("unusedCompileDependenciesTest"),
