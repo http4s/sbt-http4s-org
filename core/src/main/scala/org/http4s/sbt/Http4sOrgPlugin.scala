@@ -23,10 +23,7 @@ import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
-import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
-import TypelevelKernelPlugin._
-import autoImport._
 import TypelevelCiPlugin.autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
