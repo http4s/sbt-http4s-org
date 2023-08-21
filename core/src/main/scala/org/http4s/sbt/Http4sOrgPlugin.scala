@@ -28,8 +28,6 @@ import TypelevelCiPlugin.autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
-  object autoImport
-
   override def trigger = allRequirements
 
   override def requires = TypelevelPlugin && TypelevelScalafixPlugin && ExplicitDepsPlugin
