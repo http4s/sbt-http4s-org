@@ -87,9 +87,6 @@ object Http4sOrgSitePlugin extends AutoPlugin {
 
   val chatLink: IconLink = IconLink.external("https://discord.gg/XF3CXcMzqD", HeliumIcon.chat)
 
-  val twitterLink: IconLink =
-    IconLink.external("https://twitter.com/http4s", HeliumIcon.twitter)
-
   override def projectSettings: Seq[Setting[_]] = Seq(
     tlSiteHelium := {
       tlSiteHelium.value
