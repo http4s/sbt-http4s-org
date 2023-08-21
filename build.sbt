@@ -10,7 +10,10 @@ lazy val core = project
   .in(file("core"))
   .enablePlugins(SbtPlugin)
   .settings(
-    name := "sbt-http4s-org"
+    name := "sbt-http4s-org",
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel"),
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel-scalafix"),
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel-site")
   )
 
 lazy val docs = project

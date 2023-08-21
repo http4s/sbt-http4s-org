@@ -23,6 +23,7 @@ import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
+import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
 import TypelevelCiPlugin.autoImport._
 import TypelevelSonatypePlugin.autoImport._
@@ -34,6 +35,8 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def buildSettings =
     publishSettings ++ organizationSettings ++ githubActionsSettings ++ scalafixSettings
+
+  override def projectSettings = explicitDepsSettings
 
   lazy val publishSettings: Seq[Setting[_]] =
     Seq(
@@ -63,6 +66,11 @@ object Http4sOrgPlugin extends AutoPlugin {
         )
       ),
       githubWorkflowBuildMatrixFailFast := Some(false)
+    )
+
+  lazy val explicitDepsSettings: Seq[Setting[_]] =
+    Seq(
+      unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "scalac-compat-annotation")
     )
 
   lazy val scalafixSettings: Seq[Setting[_]] =
