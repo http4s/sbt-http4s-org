@@ -72,16 +72,6 @@ object Http4sOrgPlugin extends AutoPlugin {
       githubWorkflowBuildMatrixFailFast := Some(false)
     )
 
-  lazy val explicitDepsSettings: Seq[Setting[_]] =
-    Seq(
-      unusedCompileDependenciesTest := {
-        if (tlSkipIrrelevantScalas.value && (unusedCompileDependenciesTest / skip).value)
-          ()
-        else unusedCompileDependenciesTest.value
-      },
-      skipIfIrrelevant(unusedCompileDependenciesTest)
-    )
-
   lazy val scalafixSettings: Seq[Setting[_]] =
     Seq(
       scalafixScalaBinaryVersion := (LocalRootProject / scalaBinaryVersion).value,
