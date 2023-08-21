@@ -25,14 +25,10 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
-import TypelevelKernelPlugin._
-import autoImport._
 import TypelevelCiPlugin.autoImport._
 import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
-  object autoImport
-
   override def trigger = allRequirements
 
   override def requires = TypelevelPlugin && TypelevelScalafixPlugin && ExplicitDepsPlugin
@@ -74,12 +70,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   lazy val explicitDepsSettings: Seq[Setting[_]] =
     Seq(
-      unusedCompileDependenciesTest := {
-        if (tlSkipIrrelevantScalas.value && (unusedCompileDependenciesTest / skip).value)
-          ()
-        else unusedCompileDependenciesTest.value
-      },
-      skipIfIrrelevant(unusedCompileDependenciesTest)
+      unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "scalac-compat-annotation")
     )
 
   lazy val scalafixSettings: Seq[Setting[_]] =

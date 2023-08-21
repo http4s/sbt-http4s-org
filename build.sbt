@@ -10,17 +10,17 @@ lazy val core = project
   .in(file("core"))
   .enablePlugins(SbtPlugin)
   .settings(
-    name := "sbt-http4s-org"
+    name := "sbt-http4s-org",
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel"),
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel-scalafix"),
+    unusedCompileDependenciesFilter -= moduleFilter("org.typelevel", "sbt-typelevel-site")
   )
 
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(Http4sOrgSitePlugin)
-  .settings(
-    tlSiteRelatedProjects += "sbt-typelevel" -> url("https://typelevel.org/sbt-typelevel/")
-  )
 
-ThisBuild / tlBaseVersion := "0.14"
+ThisBuild / tlBaseVersion := "0.15"
 ThisBuild / crossScalaVersions := Seq("2.12.18")
 ThisBuild / developers := List(
   Developer(

@@ -16,20 +16,21 @@
 
 package org.http4s.sbt
 
-import laika.ast.LengthUnit._
+import cats.data.NonEmptyList
 import laika.ast.Path.Root
-import laika.ast._
-import laika.helium.Helium
+import laika.ast.*
 import laika.helium.config.Favicon
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
 import laika.helium.config.ImageLink
+import laika.helium.config.TextLink
+import laika.helium.config.ThemeNavigationSection
 import laika.sbt.LaikaPlugin
 import laika.theme.config.Color
 import org.typelevel.sbt.TypelevelGitHubPlugin
 import org.typelevel.sbt.TypelevelSitePlugin
-import sbt.Keys._
-import sbt._
+import org.typelevel.sbt.site.TypelevelSiteSettings
+import sbt.*
 
 object Http4sOrgSitePlugin extends AutoPlugin {
 
@@ -37,11 +38,10 @@ object Http4sOrgSitePlugin extends AutoPlugin {
 
   import TypelevelGitHubPlugin.autoImport._
   import TypelevelSitePlugin.autoImport._
-  import LaikaPlugin.autoImport._
 
-  override def projectSettings: Seq[Setting[_]] = Seq(
-    tlSiteRelatedProjects := {
-      Seq(
+  private val relatedProjects: Def.Initialize[ThemeNavigationSection] = Def.setting {
+    val mappings = NonEmptyList
+      .of(
         "http4s" -> url("https://http4s.org/"),
         // Backends
         "blaze" -> url("https://github.com/http4s/blaze"),
@@ -70,28 +70,25 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         "sbt-http4s-org" -> url("https://http4s.github.io/sbt-http4s-org/"),
         // Third party
         "feral" -> url("https://github.com/typelevel/feral/")
-      ).filterNot { case (repo, _) =>
+      )
+      .filterNot { case (repo, _) =>
         tlGitHubRepo.value.contains(repo) // omit ourselves!
       }
-    },
-    laikaTheme ~= { _.extend(site.Http4sHeliumExtensions) },
-    tlSiteHeliumConfig := {
-      Helium.defaults.all
-        .metadata(
-          title = tlGitHubRepo.value,
-          authors = developers.value.map(_.name),
-          language = Some("en"),
-          version = Some(version.value.toString)
-        )
-        .site
-        .layout(
-          contentWidth = px(860),
-          navigationWidth = px(275),
-          topBarHeight = px(35),
-          defaultBlockSpacing = px(10),
-          defaultLineHeight = 1.5,
-          anchorPlacement = laika.helium.config.AnchorPlacement.Right
-        )
+      .map { case (name, url) =>
+        TextLink.external(url.toString, name)
+      }
+    ThemeNavigationSection(
+      "Related Projects",
+      NonEmptyList.fromListUnsafe(mappings)
+    )
+  }
+
+  val chatLink: IconLink = IconLink.external("https://discord.gg/XF3CXcMzqD", HeliumIcon.chat)
+
+  override def projectSettings: Seq[Setting[_]] = Seq(
+    tlSiteHelium := {
+      tlSiteHelium.value
+        .extendWith(site.Http4sHeliumExtensions)
         .site
         .themeColors(
           primary = Color.hex("5B7980"),
@@ -105,32 +102,23 @@ object Http4sOrgSitePlugin extends AutoPlugin {
         )
         .site
         .favIcons(
-          Favicon.internal(Root / "images" / "http4s-favicon.svg", "32x32").copy(sizes = None),
+          Favicon.internal(Root / "images" / "http4s-favicon.svg"),
           Favicon.internal(Root / "images" / "http4s-favicon.png", "32x32")
         )
         .site
         .darkMode
         .disabled
         .site
+        .footer(TypelevelSiteSettings.defaultFooter.value: _*)
+        .site
+        .mainNavigation(appendLinks = Seq(relatedProjects.value))
+        .site
         .topNavigationBar(
-          homeLink = ImageLink
-            .external(
-              "https://http4s.org",
-              Image.internal(Root / "images" / "http4s-logo-text-dark.svg")
-            ),
-          navLinks = tlSiteApiUrl.value.toList.map { url =>
-            IconLink.external(
-              url.toString,
-              HeliumIcon.api,
-              options = Styles("svg-link")
-            )
-          } ++ Seq(
-            IconLink.external(
-              scmInfo.value.fold("https://github.com/http4s")(_.browseUrl.toString),
-              HeliumIcon.github,
-              options = Styles("svg-link")),
-            IconLink.external("https://discord.gg/XF3CXcMzqD", HeliumIcon.chat)
-          )
+          homeLink = ImageLink.external(
+            "https://http4s.org",
+            Image.internal(Root / "images" / "http4s-logo-text-dark.svg")
+          ),
+          navLinks = Seq(chatLink) // api + github links inherited from sbt-typelevel
         )
     }
   )
