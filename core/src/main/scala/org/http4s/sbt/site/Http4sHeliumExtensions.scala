@@ -16,7 +16,8 @@
 
 package org.http4s.sbt.site
 
-import cats.effect.{Async, Resource}
+import cats.effect.Async
+import cats.effect.Resource
 import laika.ast.Path
 import laika.io.model.InputTree
 import laika.theme.Theme

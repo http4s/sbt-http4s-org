@@ -19,14 +19,12 @@ package org.http4s.sbt
 import cats.data.NonEmptyList
 import laika.ast.Path.Root
 import laika.ast.*
-import laika.helium.config.{
-  Favicon,
-  HeliumIcon,
-  IconLink,
-  ImageLink,
-  TextLink,
-  ThemeNavigationSection
-}
+import laika.helium.config.Favicon
+import laika.helium.config.HeliumIcon
+import laika.helium.config.IconLink
+import laika.helium.config.ImageLink
+import laika.helium.config.TextLink
+import laika.helium.config.ThemeNavigationSection
 import laika.sbt.LaikaPlugin
 import laika.theme.config.Color
 import org.typelevel.sbt.TypelevelGitHubPlugin
