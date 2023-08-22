@@ -38,6 +38,11 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   override def projectSettings = explicitDepsSettings
 
+  override def extraProjects = Seq(
+    Project(internalScalafixProject, file(s".$internalScalafixProject"))
+      .enablePlugins(NoPublishPlugin)
+  )
+
   lazy val publishSettings: Seq[Setting[_]] =
     Seq(
       tlSonatypeUseLegacyHost := false
@@ -75,7 +80,8 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   lazy val scalafixSettings: Seq[Setting[_]] =
     Seq(
-      scalafixScalaBinaryVersion := (LocalRootProject / scalaBinaryVersion).value,
+      scalafixScalaBinaryVersion := (LocalProject(
+        internalScalafixProject) / scalaBinaryVersion).value,
       scalafixDependencies ++= Seq(
         "org.http4s" %% "http4s-scalafix-internal" % "0.23.23"
       )
@@ -85,5 +91,7 @@ object Http4sOrgPlugin extends AutoPlugin {
     val java = githubWorkflowJavaVersions.value.head
     s"matrix.java == '${java.render}'"
   }
+
+  private final val internalScalafixProject = "sbt-http4s-org-scalafix-internal"
 
 }
