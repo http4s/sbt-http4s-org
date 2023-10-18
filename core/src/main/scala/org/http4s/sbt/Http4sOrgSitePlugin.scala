@@ -79,7 +79,8 @@ object Http4sOrgSitePlugin extends AutoPlugin {
       }
     ThemeNavigationSection(
       "Related Projects",
-      NonEmptyList.fromListUnsafe(mappings)
+      mappings.head,
+      mappings.tail*
     )
   }
 
