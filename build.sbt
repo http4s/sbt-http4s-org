@@ -21,7 +21,7 @@ lazy val docs = project
   .enablePlugins(Http4sOrgSitePlugin)
 
 ThisBuild / tlBaseVersion := "0.16"
-ThisBuild / crossScalaVersions := Seq("2.12.18")
+ThisBuild / crossScalaVersions := Seq("2.12.19")
 ThisBuild / developers := List(
   Developer(
     "rossabaker",
