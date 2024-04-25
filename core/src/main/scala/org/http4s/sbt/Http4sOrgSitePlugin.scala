@@ -18,7 +18,7 @@ package org.http4s.sbt
 
 import cats.data.NonEmptyList
 import laika.ast.Path.Root
-import laika.ast.*
+import laika.ast._
 import laika.helium.config.Favicon
 import laika.helium.config.HeliumIcon
 import laika.helium.config.IconLink
@@ -30,7 +30,7 @@ import laika.theme.config.Color
 import org.typelevel.sbt.TypelevelGitHubPlugin
 import org.typelevel.sbt.TypelevelSitePlugin
 import org.typelevel.sbt.site.TypelevelSiteSettings
-import sbt.*
+import sbt._
 
 object Http4sOrgSitePlugin extends AutoPlugin {
 
