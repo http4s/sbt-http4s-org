@@ -22,11 +22,11 @@ import org.typelevel.sbt.gha._
 import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
+import xerial.sbt.Sonatype.autoImport._
 
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
 import TypelevelCiPlugin.autoImport._
-import xerial.sbt.Sonatype.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   override def trigger = allRequirements
