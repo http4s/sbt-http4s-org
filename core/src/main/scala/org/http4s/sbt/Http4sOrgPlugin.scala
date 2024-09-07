@@ -22,7 +22,6 @@ import org.typelevel.sbt.gha._
 import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
-import xerial.sbt.Sonatype.autoImport._
 
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
@@ -43,10 +42,7 @@ object Http4sOrgPlugin extends AutoPlugin {
       .enablePlugins(NoPublishPlugin)
   )
 
-  lazy val publishSettings: Seq[Setting[_]] =
-    Seq(
-      ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
-    )
+  lazy val publishSettings: Seq[Setting[_]] = Seq.empty
 
   lazy val organizationSettings: Seq[Setting[_]] =
     Seq(
