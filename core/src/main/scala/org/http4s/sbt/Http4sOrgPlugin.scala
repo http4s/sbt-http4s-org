@@ -26,7 +26,7 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
 import TypelevelCiPlugin.autoImport._
-import TypelevelSonatypePlugin.autoImport._
+import xerial.sbt.Sonatype.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   override def trigger = allRequirements
@@ -45,7 +45,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   lazy val publishSettings: Seq[Setting[_]] =
     Seq(
-      tlSonatypeUseLegacyHost := false
+      ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
     )
 
   lazy val organizationSettings: Seq[Setting[_]] =
