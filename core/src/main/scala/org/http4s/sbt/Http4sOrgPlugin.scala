@@ -26,7 +26,6 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
 import TypelevelCiPlugin.autoImport._
-import TypelevelSonatypePlugin.autoImport._
 
 object Http4sOrgPlugin extends AutoPlugin {
   override def trigger = allRequirements
@@ -43,10 +42,7 @@ object Http4sOrgPlugin extends AutoPlugin {
       .enablePlugins(NoPublishPlugin)
   )
 
-  lazy val publishSettings: Seq[Setting[_]] =
-    Seq(
-      tlSonatypeUseLegacyHost := false
-    )
+  lazy val publishSettings: Seq[Setting[_]] = Seq.empty
 
   lazy val organizationSettings: Seq[Setting[_]] =
     Seq(
