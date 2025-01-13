@@ -87,7 +87,7 @@ object Http4sOrgSitePlugin extends AutoPlugin {
   val chatLink: IconLink = IconLink.external("https://discord.gg/XF3CXcMzqD", HeliumIcon.chat)
 
   override def projectSettings: Seq[Setting[_]] = Seq(
-    tlSiteHelium := {
+    tlSiteHelium :=
       tlSiteHelium.value
         .extendWith(site.Http4sHeliumExtensions)
         .site
@@ -121,7 +121,6 @@ object Http4sOrgSitePlugin extends AutoPlugin {
           ),
           navLinks = Seq(chatLink) // api + github links inherited from sbt-typelevel
         )
-    }
   )
 
 }
