@@ -70,7 +70,7 @@ object Http4sOrgPlugin extends AutoPlugin {
         )
       ),
       githubWorkflowBuildMatrixFailFast := Some(false),
-      sonatypeCredentialHost := sonatypeCentralHost,
+      sonatypeCredentialHost := sonatypeCentralHost
     )
 
   lazy val explicitDepsSettings: Seq[Setting[_]] =
