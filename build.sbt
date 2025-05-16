@@ -1,5 +1,10 @@
 enablePlugins(TypelevelCiReleasePlugin)
 
+// The plugin consumes its own settings.  Reset after the org is
+// reconfigured in Sonatype.
+sonatypeCredentialHost := "oss.sonatype.org"
+core / sonatypeCredentialHost := "oss.sonatype.org"
+
 // Projects
 lazy val `sbt-http4s-org` = project
   .in(file("."))
