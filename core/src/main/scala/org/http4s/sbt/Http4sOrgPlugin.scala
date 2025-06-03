@@ -22,8 +22,6 @@ import org.typelevel.sbt.gha._
 import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
-import xerial.sbt.Sonatype.SonatypeKeys.sonatypeCredentialHost
-import xerial.sbt.Sonatype.sonatypeCentralHost
 
 import ExplicitDepsPlugin.autoImport._
 import GenerativeKeys._
@@ -54,8 +52,7 @@ object Http4sOrgPlugin extends AutoPlugin {
 
   lazy val githubActionsSettings: Seq[Setting[_]] =
     Seq(
-      // 11 before 8 because sbt-sonatype needs to publish on >= 11
-      githubWorkflowJavaVersions := List("11", "8", "17").map(JavaSpec.temurin(_)),
+      githubWorkflowJavaVersions := List("8", "11", "17").map(JavaSpec.temurin(_)),
       tlCiScalafixCheck := false, // we add our own, that skips Scala 3
       githubWorkflowBuildPostamble ++= Seq(
         WorkflowStep.Sbt(
@@ -69,8 +66,7 @@ object Http4sOrgPlugin extends AutoPlugin {
           cond = Some(primaryJavaCond.value)
         )
       ),
-      githubWorkflowBuildMatrixFailFast := Some(false),
-      sonatypeCredentialHost := sonatypeCentralHost
+      githubWorkflowBuildMatrixFailFast := Some(false)
     )
 
   lazy val explicitDepsSettings: Seq[Setting[_]] =

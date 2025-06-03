@@ -33,5 +33,3 @@ ThisBuild / startYear := Some(2020)
 
 // Remove cursed tag
 ThisBuild / tlMimaPreviousVersions ~= { prev => prev -- Set("1.0.0") }
-
-ThisBuild / sbtPluginPublishLegacyMavenStyle := false
