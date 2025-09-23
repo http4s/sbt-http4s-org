@@ -77,7 +77,7 @@ object Http4sOrgPlugin extends AutoPlugin {
   lazy val scalafixSettings: Seq[Setting[_]] =
     Seq(
       scalafixDependencies ++= Seq(
-        "org.http4s" %% "http4s-scalafix-internal" % "0.23.30"
+        "org.http4s" %% "http4s-scalafix-internal" % "0.23.31"
       )
     )
 
